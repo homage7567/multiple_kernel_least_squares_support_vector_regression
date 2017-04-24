@@ -1,62 +1,88 @@
 import numpy as np
-import pandas as pd
 import numpy.linalg as lalg
-from numpy.random import normal
 
 
 class LSSVMRegression(object):
     __kernel = 0
-    __X = 0
-    __Y = 0
-    __n = 0
+    __X_fit = 0
+    __Y_fit = 0
     __e = 0
+    __max_iter = 0
     __error_param = 0
+    __alpha = 0
+    __b = 0
+    __c = 0
 
+    def __init__(self, kernel, error_param=0.01, max_iter=10, c=1.0):
+        self.__kernel = kernel
+        self.__error_param = error_param
+        self.__max_iter = max_iter
+        self.__c = c
+
+    def fit(self, X_train, Y_train, n):
+        self.__X_fit = X_train
+        self.__Y_fit = Y_train
+        I = np.ones(n, dtype=float)
+        H = np.zeros((n, n), dtype=float)
+        cur_iter = 0
+
+        def __calculate_alpha_b():
+            for i in range(n):
+                for j in range(i, n):
+                    xi = X_train.iloc[i]
+                    xj = X_train.iloc[j]
+                    k = self.__kernel.K(xi, xj)
+                    H[i, j], H[j, i] = k, k
+            for i in range(n):
+                H[i, i] += 1.0 / self.__c
+            Hinv = lalg.inv(H)
+            I_Hinv = np.matmul(I.T, Hinv)
+            I_Hinv_Y = np.matmul(I_Hinv, Y_train)
+            I_Hinv_I = np.matmul(I_Hinv, I)
+            b = I_Hinv_Y / I_Hinv_I
+            alpha = np.matmul(Hinv, Y_train - I * b)
+            return alpha, b
+
+        while cur_iter < self.__max_iter:
+            self.__alpha, self.__b = __calculate_alpha_b()
+            cur_iter += 1
+
+        return self
+
+    def predict(self, X_test, n):
+        def calculate_y(xi):
+            sum = 0.0
+            for j in range(n):
+                xj = X_test.iloc[j]
+                sum += self.__alpha[j] * self.__kernel.K(xi, xj)
+            return sum
+
+        result = [calculate_y(X_test.iloc[i]) for i in range(n)]
+        result += self.__b
+        return result
+
+
+class Kernel(object):
+    __kernel = 0
+    __params = []
     __kernel_list = {
-        'gauss': lambda x, z, sigma: np.exp(- lalg.norm(x - z) ** 2 / sigma)
+        'gauss': lambda xi, xj, sigma: np.exp(- lalg.norm(xi - xj) ** 2)
     }
 
-    def __init__(self, error_param=0.01, kernel_name='gauss'):
-        """
-        Конструктор
-        :param error_param: Параметр независимой и одинаково распределённой ошибка
-        :param kernel_name: Название ядра
-        """
-        self.__kernel = self.__select_kernel(kernel_name)
-        self.__error_param = error_param
+    def __init__(self, kernel, params):
+        self.__kernel = self.__select_kernel(kernel)
+        self.__params = params
 
-    def __select_kernel(self, kenrel_name):
+    def __select_kernel(self, kenrel):
         """
         Выбор ядра из словаря
-        :param kenrel_name: Название выбираемого ядра
+        :param kenrel: Название выбираемого ядра
         :return: Выбранное ядро
         """
         try:
-            return self.__kernel_list[kenrel_name]
+            return self.__kernel_list[kenrel]
         except KeyError:
             raise ValueError("Select correct kernel! (example: 'gauss')")
 
-    def leave_one_out(self):
-
-
-    def search_aproximating_func(self, X, Y):
-        self.__e = normal(0, self.__error_param, self.__n)
-
-
-class Model(object):
-    __function = 0
-    X = 0
-    Y = 0
-    data = 0
-
-    def read_from_excel(self, excel_name):
-        self.data = pd.read_excel(excel_name, header=0)
-        self.Y = self.data["y"]
-        self.X = self.data["x"]
-
-    def create_data(self, X, function):
-        self.__function = function
-        self.X = X
-        self.Y = np.zeros(len(X))
-        for i in range(len(self.Y)):
-            self.Y[i] = self.__function(X[i])
+    def K(self, xi, xj):
+        return self.__kernel(self.__params[0], xi, xj)
