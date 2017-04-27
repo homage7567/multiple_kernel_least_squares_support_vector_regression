@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.linalg as lalg
 import pandas as pd
-
+from scipy.optimize import minimize
 
 class LSSVMRegression(object):
     __X_train = 0
@@ -12,6 +12,7 @@ class LSSVMRegression(object):
     __alpha = 0
     __b = 0
     __c = 0
+    __beta = 0
 
     def __init__(self, kernel, error_param=0.01, max_iter=5, c=1.0):
         self.__kernel = kernel
@@ -52,8 +53,34 @@ class LSSVMRegression(object):
             alpha = np.matmul(Hinv, Y_train - I * b)
             return alpha, b
 
+        def __calculate_beta(betas):
+            # TODO: подать правильно переменные в класс
+            kernel_cnt = 0
+            lyambda = []
+            sum = 0.0
+            beta_k = np.zeros(kernel_cnt, dtype=float)
+
+            for i in range(n):
+                for d in range(kernel_cnt):
+                    Kid = np.zeros(n, dtype=float)
+                    for k in range(n):
+                        Kid[k] = self.__kernel(X_train[i, d], X_train[k, d])
+                    beta_k[d] = betas[d] * Kid
+                betta_k_alpha = np.matmul(beta_k, self.__alpha)
+                sum += (Y_train[i] - betta_k_alpha - self.__b)**2
+            sum += lyambda * np.sum(betas)
+            return sum
+
+        def __minimize_beta():
+            cons = ({'type': 'eq', 'fun': lambda x: sum(x) - 1.0})
+            bnds = [(0.0, 1.0) for _ in self.__beta]
+            betaopt = minimize(__calculate_beta, self.__beta, bounds=bnds,
+                               constraints=cons, method='SLSQP')
+            return betaopt.x
+
         while cur_iter < self.__max_iter:
             self.__alpha, self.__b = __calculate_alpha_b()
+            self.__beta = __minimize_beta()
             cur_iter += 1
 
         return self.__alpha, self.__b
@@ -74,7 +101,7 @@ class Kernel(object):
     __kernel = 0
     __params = []
     __kernel_list = {
-        'gauss': lambda sigma, xi, xj, : np.exp(-1.0 * lalg.norm(xi - xj)**2 / (2 * sigma**2))
+        'gauss': lambda sigma, xi, xj, : np.e**(-1.0 * lalg.norm(xi - xj)**2 / (2 * sigma**2))
     }
 
     def __init__(self, kernel, params):

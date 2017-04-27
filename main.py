@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 
 def f(x):
     quad = x**2
-    result = x + 4*np.exp(-2 * quad) / np.sqrt(2 * np.pi)
+    result = x + 4*np.e**(-2 * quad) / np.sqrt(2 * np.pi)
     return result
 
 
@@ -31,8 +31,8 @@ def main():
     kernel = lssvm.Kernel("gauss", [1.0])
     classifier = lssvm.LSSVMRegression(kernel, c=50.0)
 
-    # result = classifier.leave_one_out(data.drop("y", axis=1), data.drop("x", axis=1))
-    # plot_f(data["x"], result)
+    result = classifier.leave_one_out(data.drop("y", axis=1), data.drop("x", axis=1))
+    plot_f(data["x"], result)
 
     # classifier.fit(X_train, y_train)
     # result = classifier.predict(X_test)
