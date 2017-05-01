@@ -26,17 +26,13 @@ def main():
     data = pd.read_excel('test_data.xlsx', header=0)
     Y = data["y"]
     X = data.drop("y", axis=1)
-    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.4, random_state=0)
+    # X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.4, random_state=0)
 
-    kernel = lssvm.Kernel("gauss", [1.0])
-    classifier = lssvm.LSSVMRegression(kernel, c=50.0)
+    kernel_list = [lssvm.Kernel("gauss", [i]) for i in [1.0, 2.0, 4.0, 8.0]]
+    classifier = lssvm.LSSVMRegression(kernel_list, c=50.0)
 
     result = classifier.leave_one_out(data.drop("y", axis=1), data.drop("x", axis=1))
     plot_f(data["x"], result)
-
-    # classifier.fit(X_train, y_train)
-    # result = classifier.predict(X_test)
-    # plot_f(X_test["x"], result)
 
 if __name__ == '__main__':
     main()
