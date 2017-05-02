@@ -19,15 +19,49 @@ class LSSVMRegression(object):
         self.__max_iter = max_iter
         self.__c = c
 
-    def leave_one_out(self, X, Y):
+    def cross_validation(self, X, Y, segment_cnt=2):
         result = []
-        for i in range(len(X)):
-            d = {'col1': X.iloc[i]}
-            x_test = pd.DataFrame(data=d)
-            x_train = X.drop(X.index[i])["x"]
-            y_train = Y.drop(Y.index[i])["y"]
+        size = len(X) // segment_cnt
+
+        # Первый блок
+        x_test = X["x"][0:size]
+        x_train = X["x"][size:]
+        y_train = Y["y"][size:]
+        print("Starting block 1: train_len = " + str(len(x_train)) + "; test_len = " + str(len(x_test)))
+        self.fit(x_train, y_train)
+        pred = self.predict(x_test)
+        for elem in pred:
+            result.append(elem)
+        print("Block 1 complete!\n")
+
+        # Внутренние блоки
+        for i in range(1, segment_cnt - 1):
+            x_train = X["x"][:i * size]
+            y_train = Y["y"][:i * size]
+            x_test = X["x"][i * size:(i + 1) * size]
+            x_train = pd.concat([x_train, X["x"][(i + 1) * size:]], axis=0, ignore_index=True)
+            y_train = pd.concat([y_train, Y["y"][(i + 1) * size:]], axis=0, ignore_index=True)
+
+            print("Starting block " + str(i + 1) + ": train_len = " + str(len(x_train)) +
+                  "; test_len = " + str(len(x_test)))
             self.fit(x_train, y_train)
-            result.append(self.predict(x_test))
+            pred = self.predict(x_test)
+            for elem in pred:
+                result.append(elem)
+            print("Block " + str(i + 1) + " complete!\n")
+
+        # Последний блок
+        x_test = X["x"][(segment_cnt - 1) * size:]
+        x_train = X["x"][:(segment_cnt - 1) * size]
+        y_train = Y["y"][:(segment_cnt - 1) * size]
+        print("Starting block " + str(size) + " : train_len = " + str(len(x_train)) +
+              "; test_len = " + str(len(x_test)))
+        self.fit(x_train, y_train)
+        pred = self.predict(x_test)
+        for elem in pred:
+            result.append(elem)
+        print("Block " + str(size) + " complete!\n")
+
         return result
 
     def fit(self, X_train, Y_train):

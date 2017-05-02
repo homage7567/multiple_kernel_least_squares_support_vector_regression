@@ -29,10 +29,10 @@ def main():
     X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.4, random_state=0)
 
     kernel = lssvm.Kernel("gauss", [1.0])
-    classifier = lssvm.LSSVMRegression(kernel, c=50.0)
+    classifier = lssvm.LSSVMRegression(kernel, max_iter=10, c=50.0)
 
-    # result = classifier.leave_one_out(data.drop("y", axis=1), data.drop("x", axis=1))
-    # plot_f(data["x"], result)
+    result = classifier.cross_validation(data.drop("y", axis=1), data.drop("x", axis=1), segment_cnt=10)
+    plot_f(data["x"], result)
 
     # classifier.fit(X_train, y_train)
     # result = classifier.predict(X_test)
