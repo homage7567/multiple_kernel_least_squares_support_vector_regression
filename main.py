@@ -31,7 +31,7 @@ def main():
     kernel_list = [lssvm.Kernel("gauss", [i]) for i in [1.0, 2.0, 4.0, 8.0]]
     classifier = lssvm.LSSVMRegression(kernel_list, c=50.0)
 
-    result = classifier.leave_one_out(data.drop("y", axis=1), data.drop("x", axis=1))
+    result = classifier.cross_validation(data.drop("y", axis=1), data.drop("x", axis=1), segment_cnt=10)
     plot_f(data["x"], result)
 
 if __name__ == '__main__':

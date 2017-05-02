@@ -24,16 +24,40 @@ class LSSVMRegression(object):
         self.__kernel_cnt = len(kernels)
         self.__betas = [0 for i in range(self.__kernel_cnt)]
 
-    def leave_one_out(self, X, Y):
+    def cross_validation(self, X, Y, segment_cnt=2):
         result = []
-        for i in range(len(X)):
-            d = {'col1': X.iloc[i]}
-            x_test = pd.DataFrame(data=d)
-            x_train = X.drop(X.index[i])["x"]
-            y_train = Y.drop(Y.index[i])["y"]
+        size = len(X) // segment_cnt
+
+        # Первый блок
+        x_test = X["x"][0:size]
+        x_train = X["x"][size:]
+        y_train = Y["y"][size:]
+        print("Starting block 1!")
+        self.fit(x_train, y_train)
+        result.append(self.predict(x_test))
+        print("Block 1 complete!")
+
+        # Внутренние блоки
+        for i in range(1, segment_cnt - 1):
+            x_train = X["x"][(i - 1)*size:i*size]
+            y_train = Y["y"][(i - 1)*size:i*size]
+            x_test = X["x"][i*size:(i + 1)*size]
+            x_train += X["x"][(i + 1)*size:(i + 2)*size]
+            y_train += Y["y"][(i + 1)*size:(i + 2)*size]
+            print("Starting block " + str(i + 1) + "!")
             self.fit(x_train, y_train)
             result.append(self.predict(x_test))
-            print("Вычислено " + str(i) + "-е число")
+            print("Block " + str(i + 1) + " complete!")
+
+        # Последний блок
+        x_test = X["x"][(segment_cnt - 1)*size:]
+        x_train = X["x"][:(segment_cnt - 1)*size]
+        y_train = Y["y"][:(segment_cnt - 1)*size]
+        print("Starting final block")
+        self.fit(x_train, y_train)
+        result.append(self.predict(x_test))
+        print("All blocks complete!")
+
         return result
 
     def fit(self, X_train, Y_train):
