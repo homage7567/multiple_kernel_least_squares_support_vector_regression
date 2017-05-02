@@ -16,13 +16,13 @@ class LSSVMRegression(object):
     __betas = 0
     __kernel_cnt = 0
 
-    def __init__(self, kernels, error_param=0.01, max_iter=1, c=1.0):
+    def __init__(self, kernels, error_param=0.0001, max_iter=15, c=1.0):
         self.__kernels = kernels
         self.__error_param = error_param
         self.__max_iter = max_iter
         self.__c = c
         self.__kernel_cnt = len(kernels)
-        self.__betas = [0 for i in range(self.__kernel_cnt)]
+        self.__betas = [1/self.__kernel_cnt for i in range(self.__kernel_cnt)]
 
     def cross_validation(self, X, Y, segment_cnt=2):
         result = []
@@ -32,31 +32,40 @@ class LSSVMRegression(object):
         x_test = X["x"][0:size]
         x_train = X["x"][size:]
         y_train = Y["y"][size:]
-        print("Starting block 1!")
+        print("Starting block 1: train_len = " + str(len(x_train)) + "; test_len = " + str(len(x_test)))
         self.fit(x_train, y_train)
-        result.append(self.predict(x_test))
-        print("Block 1 complete!")
+        pred = self.predict(x_test)
+        for elem in pred:
+            result.append(elem)
+        print("Block 1 complete!\n")
 
         # Внутренние блоки
         for i in range(1, segment_cnt - 1):
-            x_train = X["x"][(i - 1)*size:i*size]
-            y_train = Y["y"][(i - 1)*size:i*size]
-            x_test = X["x"][i*size:(i + 1)*size]
-            x_train += X["x"][(i + 1)*size:(i + 2)*size]
-            y_train += Y["y"][(i + 1)*size:(i + 2)*size]
-            print("Starting block " + str(i + 1) + "!")
+            x_train = X["x"][:i*size]
+            y_train = Y["y"][:i * size]
+            x_test = X["x"][i * size:(i + 1)*size]
+            x_train = pd.concat([x_train, X["x"][(i + 1)*size:]], axis=0, ignore_index=True)
+            y_train = pd.concat([y_train, Y["y"][(i + 1)*size:]], axis=0, ignore_index=True)
+
+            print("Starting block " + str(i + 1) + ": train_len = " + str(len(x_train)) +
+                  "; test_len = " + str(len(x_test)))
             self.fit(x_train, y_train)
-            result.append(self.predict(x_test))
-            print("Block " + str(i + 1) + " complete!")
+            pred = self.predict(x_test)
+            for elem in pred:
+                result.append(elem)
+            print("Block " + str(i + 1) + " complete!\n")
 
         # Последний блок
         x_test = X["x"][(segment_cnt - 1)*size:]
         x_train = X["x"][:(segment_cnt - 1)*size]
         y_train = Y["y"][:(segment_cnt - 1)*size]
-        print("Starting final block")
+        print("Starting block " + str(size) + " : train_len = " + str(len(x_train)) +
+              "; test_len = " + str(len(x_test)))
         self.fit(x_train, y_train)
-        result.append(self.predict(x_test))
-        print("All blocks complete!")
+        pred = self.predict(x_test)
+        for elem in pred:
+            result.append(elem)
+        print("Block " + str(size) + " complete!\n")
 
         return result
 
@@ -73,7 +82,7 @@ class LSSVMRegression(object):
                 for j in range(i + 1):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
-                        k += self.__betas[d] * self.__kernels[d].K(X_train.iloc[i], X_train.iloc[j])
+                        k += self.__betas[d]*self.__kernels[d].K(X_train.iloc[i], X_train.iloc[j])
                     H[i, j], H[j, i] = k, k
                 H[i, i] += 1.0 / self.__c
 
@@ -91,11 +100,11 @@ class LSSVMRegression(object):
 
             for i in range(n):
                 for d in range(self.__kernel_cnt):
-                    Kid = [self.__kernels[d].K(X_train.iloc[i], X_train.iloc[k]) * betas[d] for k in range(n)]
+                    Kid = [betas[d] * self.__kernels[d].K(X_train.iloc[i], X_train.iloc[k]) for k in range(n)]
                     beta_k += Kid
                 betta_k_alpha = np.matmul(beta_k, self.__alpha)
                 sum += (Y_train.iloc[i] - betta_k_alpha - self.__b)**2
-            sum += np.sum(betas)
+            sum += self.__c * np.sum(betas)
             return sum
 
         def __minimize_beta():
@@ -105,12 +114,15 @@ class LSSVMRegression(object):
                                constraints=cons, method='SLSQP')
             return betaopt.x
 
+        prev_beta_norm = np.linalg.norm(self.__betas)
         while cur_iter < self.__max_iter:
             self.__alpha, self.__b = __calculate_alpha_b()
             self.__betas = __minimize_beta()
-            print("Итерация " + str(cur_iter))
+            beta_norm = np.linalg.norm(self.__betas)
+            print(self.__betas)
             cur_iter += 1
-
+            if abs(prev_beta_norm - beta_norm) < self.__error_param:
+                break
         return self.__alpha, self.__b
 
     def predict(self, X_test):
@@ -121,7 +133,7 @@ class LSSVMRegression(object):
                 xj = self.__X_train.iloc[j]
                 for d in range(self.__kernel_cnt):
                     sum_d += self.__betas[d] * self.__kernels[d].K(xi, xj)
-                sum_j += self.__alpha[j] * sum_j
+                sum_j += self.__alpha[j] * sum_d
             return sum_j + self.__b
 
         y = [calculate_y(X_test.iloc[i]) for i in range(len(X_test))]
