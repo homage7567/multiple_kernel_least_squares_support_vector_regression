@@ -28,7 +28,7 @@ def main():
     X = data.drop("y", axis=1)
     # X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.4, random_state=0)
 
-    kernel_list = [lssvm.Kernel("gauss", [i]) for i in [1.0, 2.0, 4.0, 8.0]]
+    kernel_list = [lssvm.Kernel("gauss", [i]) for i in [.5, 0.1, 1.0, 0.0]]
     classifier = lssvm.LSSVMRegression(kernel_list, c=50.0)
 
     result = classifier.cross_validation(data.drop("y", axis=1), data.drop("x", axis=1), segment_cnt=10)

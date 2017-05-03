@@ -22,12 +22,13 @@ class LSSVMRegression(object):
         self.__max_iter = max_iter
         self.__c = c
         self.__kernel_cnt = len(kernels)
-        self.__betas = [1/self.__kernel_cnt for i in range(self.__kernel_cnt)]
+        self.__betas = np.zeros(self.__kernel_cnt, dtype=float)
+        for i in range(self.__kernel_cnt):
+            self.__betas[i] = 1.0 / self.__kernel_cnt
 
     def cross_validation(self, X, Y, segment_cnt=2):
         result = []
         size = len(X) // segment_cnt
-
         # Первый блок
         x_test = X["x"][0:size]
         x_train = X["x"][size:]
@@ -46,7 +47,6 @@ class LSSVMRegression(object):
             x_test = X["x"][i * size:(i + 1)*size]
             x_train = pd.concat([x_train, X["x"][(i + 1)*size:]], axis=0, ignore_index=True)
             y_train = pd.concat([y_train, Y["y"][(i + 1)*size:]], axis=0, ignore_index=True)
-
             print("Starting block " + str(i + 1) + ": train_len = " + str(len(x_train)) +
                   "; test_len = " + str(len(x_test)))
             self.fit(x_train, y_train)
@@ -66,7 +66,6 @@ class LSSVMRegression(object):
         for elem in pred:
             result.append(elem)
         print("Block " + str(size) + " complete!\n")
-
         return result
 
     def fit(self, X_train, Y_train):
@@ -104,22 +103,22 @@ class LSSVMRegression(object):
                     beta_k += Kid
                 betta_k_alpha = np.matmul(beta_k, self.__alpha)
                 sum += (Y_train.iloc[i] - betta_k_alpha - self.__b)**2
-            sum += self.__c * np.sum(betas)
+            sum += 1
             return sum
 
         def __minimize_beta():
             cons = ({'type': 'eq', 'fun': lambda x: sum(x) - 1.0})
-            bnds = [(0.0, 1.0) for _ in self.__betas]
-            betaopt = minimize(__calculate_beta, self.__betas, bounds=bnds,
-                               constraints=cons, method='SLSQP')
+            bnds = [(0.0, 1.0) for i in self.__betas]
+            betaopt = minimize(__calculate_beta, self.__betas, method='SLSQP', bounds=bnds, constraints=cons)
             return betaopt.x
 
         prev_beta_norm = np.linalg.norm(self.__betas)
         while cur_iter < self.__max_iter:
             self.__alpha, self.__b = __calculate_alpha_b()
+
+            print(self.__betas)
             self.__betas = __minimize_beta()
             beta_norm = np.linalg.norm(self.__betas)
-            print(self.__betas)
             cur_iter += 1
             if abs(prev_beta_norm - beta_norm) < self.__error_param:
                 break
