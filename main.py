@@ -1,7 +1,7 @@
 import lssvm
 import numpy as np
 import pandas as pd
-from sklearn.cross_validation import train_test_split
+from cross_validation import CV
 from matplotlib import pyplot as plt
 
 
@@ -24,15 +24,12 @@ def plot_f(X, Y):
 
 def main():
     data = pd.read_excel('test_data.xlsx', header=0)
-    Y = data["y"]
-    X = data.drop("y", axis=1)
-    # X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=.4, random_state=0)
-
-    kernel_list = [lssvm.Kernel("gauss", [i]) for i in [.5, 0.1, 1.0, 0.0]]
-    classifier = lssvm.LSSVMRegression(kernel_list, c=50.0)
-
-    result = classifier.cross_validation(data.drop("y", axis=1), data.drop("x", axis=1), segment_cnt=10)
-    plot_f(data["x"], result)
+    kernel_list = [lssvm.Kernel("gauss", [i]) for i in [-0.5, -0.1, 0.1, 0.5]]
+    classifier = lssvm.LSSVMRegression(kernel_list, c=20.0)
+    x, y = CV.cross_val_score(data.drop("y", axis=1), data.drop("x", axis=1), classifier, segment_cnt=10)
+    mse = classifier.calculate_mse(x, y, lambda arg: f(arg))
+    print("MSE = " + str(mse))
+    plot_f(x, y)
 
 if __name__ == '__main__':
     main()
