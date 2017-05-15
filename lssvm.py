@@ -29,12 +29,11 @@ class LSSVMRegression(object):
     def fit(self, X_train, Y_train):
         n = len(X_train)
         self.__X_train = X_train
-        I = np.ones(n, dtype=float)
-        H = np.zeros((n, n), dtype=float)
         cur_iter = 0
 
         def __calculate_alpha_b():
-            # TODO: Проблема, что делать с кучей ядер??
+            I = np.ones(n, dtype=float)
+            H = np.zeros((n, n), dtype=float)
             for i in range(n):
                 for j in range(i + 1):
                     k = 0.0
@@ -74,13 +73,13 @@ class LSSVMRegression(object):
         while cur_iter < self.__max_iter:
             self.__alpha, self.__b = __calculate_alpha_b()
             self.__betas = __minimize_beta()
+            print("Betas: " + str(self.__betas))
             beta_norm = np.linalg.norm(self.__betas)
             if abs(prev_beta_norm - beta_norm) < self.__error_param:
                 break
 
             prev_beta_norm = beta_norm
             cur_iter += 1
-            print(self.__betas)
         return self.__alpha, self.__b
 
     def predict(self, X_test):

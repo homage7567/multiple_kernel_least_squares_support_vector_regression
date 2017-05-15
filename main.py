@@ -24,9 +24,9 @@ def plot_f(X, Y):
 
 def main():
     data = pd.read_excel('test_data.xlsx', header=0)
-    kernel_list = [lssvm.Kernel("gauss", [i]) for i in [-0.5, -0.1, 0.1, 0.5]]
-    classifier = lssvm.LSSVMRegression(kernel_list, c=20.0)
-    x, y = CV.cross_val_score(data.drop("y", axis=1), data.drop("x", axis=1), classifier, segment_cnt=10)
+    kernel_list = [lssvm.Kernel("gauss", [i]) for i in [1.0]]
+    classifier = lssvm.LSSVMRegression(kernel_list, c=40.0)
+    x, y = CV.cross_val_score(data.drop("y", axis=1), data.drop("x", axis=1), classifier, segment_cnt=20)
     mse = classifier.calculate_mse(x, y, lambda arg: f(arg))
     print("MSE = " + str(mse))
     plot_f(x, y)
