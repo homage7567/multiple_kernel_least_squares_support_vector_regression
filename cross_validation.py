@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 
+
 class CV(object):
     @staticmethod
     def cross_val_score(X, Y, classificator, segment_cnt=10):
@@ -21,7 +22,7 @@ class CV(object):
         print("Starting block 1!")
         classificator.fit(x_train, y_train)
         for x in classificator.predict(x_test): result.append(x)
-        print("Block 1 complete!")
+        print("Block 1 complete!\n")
 
         # Внутренние блоки
         for i in range(1, segment_cnt - 1):
@@ -34,7 +35,7 @@ class CV(object):
             print("Starting block " + str(i + 1) + "!")
             classificator.fit(x_train, y_train)
             for x in classificator.predict(x_test): result.append(x)
-            print("Block " + str(i + 1) + " complete!")
+            print("Block " + str(i + 1) + " complete!\n")
 
         # Последний блок
         x_test = X_data[(segment_cnt - 1) * size:]
@@ -44,6 +45,6 @@ class CV(object):
         print("Train size: " + str(len(x_train)) + "; Test size: " + str(len(x_test)))
         classificator.fit(x_train, y_train)
         for x in classificator.predict(x_test): result.append(x)
-        print("All blocks complete!")
+        print("All blocks complete!\n")
 
         return X_data, result

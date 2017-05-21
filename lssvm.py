@@ -1,6 +1,6 @@
 import numpy as np
 import numpy.linalg as lalg
-import pandas as pd
+from timer import Timer
 from scipy.optimize import minimize
 
 
@@ -16,7 +16,7 @@ class LSSVMRegression(object):
     __betas = 0
     __kernel_cnt = 0
 
-    def __init__(self, kernels, error_param=0.0001, max_iter=15, c=1.0):
+    def __init__(self, kernels, error_param=0.001, max_iter=10, c=1.0):
         self.__kernels = kernels
         self.__error_param = error_param
         self.__max_iter = max_iter
@@ -70,16 +70,27 @@ class LSSVMRegression(object):
             return betas.x
 
         prev_beta_norm = np.linalg.norm(self.__betas)
+        prev_alpha_norm = np.linalg.norm(self.__alpha)
+
         while cur_iter < self.__max_iter:
-            self.__alpha, self.__b = __calculate_alpha_b()
-            self.__betas = __minimize_beta()
+            print("Iteration " + str(cur_iter))
+            with Timer("Alphas estimation"):
+                self.__alpha, self.__b = __calculate_alpha_b()
+
+            with Timer("Betas estimation"):
+                self.__betas = __minimize_beta()
             print("Betas: " + str(self.__betas))
+
             beta_norm = np.linalg.norm(self.__betas)
-            if abs(prev_beta_norm - beta_norm) < self.__error_param:
-                break
+            alpha_norm = np.linalg.norm(self.__alpha)
+            beta_delta = abs(prev_beta_norm - beta_norm) < self.__error_param
+            alpha_delta = abs(prev_alpha_norm - alpha_norm) < self.__error_param
+            if beta_delta or alpha_delta: break
 
             prev_beta_norm = beta_norm
+            prev_alpha_norm = alpha_norm
             cur_iter += 1
+            print("\n")
         return self.__alpha, self.__b
 
     def predict(self, X_test):
@@ -96,10 +107,12 @@ class LSSVMRegression(object):
         y = [calculate_y(X_test.iloc[i]) for i in range(len(X_test))]
         return y
 
-    def calculate_mse(self, X, Y, f):
+    @staticmethod
+    def calculate_mse(X, Y, f):
         mse = 0.0
         n = len(X)
-        for i in range(n): mse += (f(X[i]) - Y[i])**2
+        for i in range(n):
+            mse += (f(X[i]) - Y[i])**2
         mse /= n
         return np.sqrt(mse)
 
