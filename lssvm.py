@@ -38,7 +38,7 @@ class LSSVMRegression(object):
                 for j in range(i + 1):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
-                        k += self.__betas[d]*self.__kernels[d].K(X_train.iloc[i], X_train.iloc[j])
+                        k += self.__betas[d] * self.__kernels[d].K(X_train.iloc[i], X_train.iloc[j])
                     H[i, j], H[j, i] = k, k
                 H[i, i] += 1.0 / self.__c
 
@@ -52,14 +52,13 @@ class LSSVMRegression(object):
 
         def __calculate_beta(betas):
             sum = 0.0
-            beta_k = np.zeros(n, dtype=float)
-
             for i in range(n):
+                sum_d = 0.0
                 for d in range(self.__kernel_cnt):
-                    Kid = [betas[d] * self.__kernels[d].K(X_train.iloc[i], X_train.iloc[k]) for k in range(n)]
-                    beta_k += Kid
-                betta_k_alpha = np.matmul(beta_k, self.__alpha)
-                sum += (Y_train.iloc[i] - betta_k_alpha - self.__b)**2
+                    K = [self.__kernels[d].K(X_train.iloc[i], X_train.iloc[k]) for k in range(n)]
+                    beta_K_alpha = betas[d] * np.matmul(K, self.__alpha)
+                    sum_d += beta_K_alpha
+                sum += (Y_train.iloc[i] - sum_d - self.__b)**2
             sum += 1
             return sum
 
