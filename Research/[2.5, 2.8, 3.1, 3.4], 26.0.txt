@@ -1,0 +1,44 @@
+Train size: 250; Test size: 125
+Starting block 1!
+Iteration 0
+Alphas estimation: 12.750 sec
+Betas estimation: 1479.527 sec
+Betas: [  4.04958173e-01   5.20417043e-18   2.88400042e-01   3.06641784e-01]
+
+
+Iteration 1
+Alphas estimation: 11.781 sec
+Betas estimation: 759.029 sec
+Betas: [  4.87928260e-01   6.93889390e-18   3.46620523e-02   4.77409687e-01]
+
+
+Iteration 2
+Alphas estimation: 11.813 sec
+Betas estimation: 621.955 sec
+Betas: [  5.08079988e-01   4.33680869e-18   0.00000000e+00   4.91920012e-01]
+
+
+Iteration 3
+Alphas estimation: 12.516 sec
+Betas estimation: 490.293 sec
+Betas: [  5.18239728e-01   0.00000000e+00   8.25292640e-18   4.81760272e-01]
+Block 1 complete!
+
+Train size: 250; Test size: 125
+Starting block 2!
+Iteration 0
+Alphas estimation: 12.703 sec
+Betas estimation: 481.534 sec
+Betas: [  5.26962800e-01   5.52943108e-18   0.00000000e+00   4.73037200e-01]
+Block 2 complete!
+
+Starting final block
+Train size: 250; Test size: 125
+Iteration 0
+Alphas estimation: 11.766 sec
+Betas estimation: 481.477 sec
+Betas: [  5.36048247e-01   0.00000000e+00   3.27971157e-18   4.63951753e-01]
+All blocks complete!
+
+CV: 4400.067 sec
+MSE = 0.0540173548994

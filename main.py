@@ -12,18 +12,19 @@ def f(x):
     return 2 * np.e ** (-0.1 * x) * np.sin(0.1 * 2 * np.pi * x)
 
 
-def function_estimation(data, mutex, kp1, kp2, kp3, kp4):
-    def plot_f(x, y, x_est, y_est):
-        plt.figure(dpi=100, figsize=(32, 16))
-        plt.plot(x, y, label="y")
-        data = sorted(zip(x_est, y_est))
-        x_ = [x[0] for x in data]
-        y_ = [y[1] for y in data]
-        plt.plot(x_, y_, label="y")
-        plt.savefig(file_out + ".jpeg")
+def plot_f(x, y, x_est, y_est, file_out):
+    plt.figure(dpi=100, figsize=(32, 16))
+    plt.plot(x, y, label="y")
+    data = sorted(zip(x_est, y_est))
+    x_ = [x[0] for x in data]
+    y_ = [y[1] for y in data]
+    plt.plot(x_, y_, label="y")
+    plt.savefig(file_out + ".jpeg")
 
+
+def function_estimation(data, mutex, kp1, kp2, kp3, kp4):
     kernel_params = [kp1, kp2, kp3, kp4]
-    for r in range(10, 200, 20):
+    for r in range(10, 500, 50):
         r /= 10.0
         file_out = "Research\\" + str(kernel_params) + ", " + str(r)
         sys.stdout = open(file_out + ".txt", "w+")
@@ -34,7 +35,7 @@ def function_estimation(data, mutex, kp1, kp2, kp3, kp4):
                                               segment_cnt=3)
         mse = classifier.calculate_mse(x_est, y_est, lambda arg: f(arg))
         print("MSE = " + str(mse))
-        plot_f(data["x"], data["y"], x_est, y_est)
+        plot_f(data["x"], data["y"], x_est, y_est, file_out)
 
         with mutex:
             report_file = open("Research\\report.txt", "a")
@@ -65,19 +66,17 @@ def main():
             "y": y})
         df.to_excel(filename)
 
-    def researches():
+    def researches(data):
         report_file = open("Research\\report.txt", "w+")
         report_file.write("MSE\t\t\tReg_param\t\tKernel_param\n")
         report_file.close()
-        files = ["test2.xlsx"]
-        data = pd.read_excel(files[0], header=0)
-        kp = [i / 1000.0 for i in range(1410, 1510, 5)]
+        kp = [i / 1000.0 for i in range(100, 5000, 300)]
         i = 0
         thread_list = []
         mutex = mp.Lock()
 
         with Timer("Time with threads"):
-            while i < len(kp):
+            while i < len(kp) - 4:
                 thread = mp.Process(target=function_estimation,
                                     args=(data, mutex, kp[i], kp[i + 1], kp[i + 2], kp[i + 3]))
                 thread_list.append(thread)
@@ -88,10 +87,25 @@ def main():
             for thread in thread_list:
                 thread.join()
 
-    noise = 0.1
+    def one_research(data, kernel_params, reg_param):
+        file_out = "Research\\" + str(kernel_params) + ", " + str(reg_param)
+        sys.stdout = open(file_out + ".txt", "w+")
+        kernel_list = [lssvm.Kernel("gauss", [kernel_param]) for kernel_param in kernel_params]
+        classifier = lssvm.LSSVMRegression(kernel_list, c=reg_param)
+        with Timer("CV"):
+            x_est, y_est = CV.cross_val_score(data.drop("y", axis=1), data.drop("x", axis=1), classifier,
+                                              segment_cnt=3)
+        mse = classifier.calculate_mse(x_est, y_est, lambda arg: f(arg))
+        print("MSE = " + str(mse))
+        plot_f(data["x"], data["y"], x_est, y_est, file_out)
+
+    data = pd.read_excel("test2.xlsx", header=0)
     x = np.arange(0.0, 30.0, 0.08)
+    noise = 0.1
+
     # create_data("test2.xlsx", draw=True)
-    researches()
+    # researches()
+    one_research(data, [7.0, 8.0, 9.5, 10.0], 10.0)
 
 if __name__ == '__main__':
     main()

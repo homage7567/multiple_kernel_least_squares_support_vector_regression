@@ -1,0 +1,162 @@
+Train size: 250; Test size: 125
+Starting block 1!
+Iteration 0
+Alphas estimation: 14.858 sec
+Betas estimation: 1101.368 sec
+Betas: [ 0.27382196  0.20249412  0.30853302  0.21515089]
+
+
+Iteration 1
+Alphas estimation: 14.297 sec
+Betas estimation: 934.626 sec
+Betas: [ 0.29753749  0.15544292  0.36642772  0.18059186]
+
+
+Iteration 2
+Alphas estimation: 14.735 sec
+Betas estimation: 929.517 sec
+Betas: [ 0.32113751  0.10886685  0.42362646  0.14636918]
+
+
+Iteration 3
+Alphas estimation: 14.250 sec
+Betas estimation: 926.985 sec
+Betas: [ 0.34460567  0.06280598  0.48005624  0.11253211]
+
+
+Iteration 4
+Alphas estimation: 15.047 sec
+Betas estimation: 928.892 sec
+Betas: [ 0.36793471  0.01727709  0.53566673  0.07912148]
+
+
+Iteration 5
+Alphas estimation: 14.985 sec
+Betas estimation: 769.701 sec
+Betas: [  3.82650072e-01   1.73472348e-18   5.39198364e-01   7.81515639e-02]
+
+
+Iteration 6
+Alphas estimation: 14.735 sec
+Betas estimation: 600.745 sec
+Betas: [  3.92073154e-01   2.40014080e-17   5.10840132e-01   9.70867143e-02]
+
+
+Iteration 7
+Alphas estimation: 14.875 sec
+Betas estimation: 601.448 sec
+Betas: [  4.01447286e-01   5.14313260e-17   4.83081720e-01   1.15470993e-01]
+
+
+Iteration 8
+Alphas estimation: 14.766 sec
+Betas estimation: 601.026 sec
+Betas: [  4.10773149e-01   3.27721471e-17   4.55904693e-01   1.33322157e-01]
+
+
+Iteration 9
+Alphas estimation: 14.750 sec
+Betas estimation: 601.464 sec
+Betas: [  4.20051409e-01   2.39546967e-17   4.29291494e-01   1.50657097e-01]
+
+
+Block 1 complete!
+
+Train size: 250; Test size: 125
+Starting block 2!
+Iteration 0
+Alphas estimation: 14.735 sec
+Betas estimation: 592.667 sec
+Betas: [  4.30757580e-01   3.61562094e-17   4.00445064e-01   1.68797356e-01]
+
+
+Iteration 1
+Alphas estimation: 14.922 sec
+Betas estimation: 598.316 sec
+Betas: [  4.41428780e-01   2.38915211e-17   3.72103014e-01   1.86468206e-01]
+
+
+Iteration 2
+Alphas estimation: 14.688 sec
+Betas estimation: 600.448 sec
+Betas: [  4.52065250e-01   1.39349107e-17   3.44252865e-01   2.03681885e-01]
+
+
+Iteration 3
+Alphas estimation: 14.813 sec
+Betas estimation: 599.026 sec
+Betas: [  4.62667234e-01   2.83152441e-17   3.16882603e-01   2.20450163e-01]
+
+
+Iteration 4
+Alphas estimation: 14.922 sec
+Betas estimation: 600.413 sec
+Betas: [  4.73234978e-01   2.33680351e-17   2.89980648e-01   2.36784374e-01]
+Block 2 complete!
+
+Starting final block
+Train size: 250; Test size: 125
+Iteration 0
+Alphas estimation: 14.781 sec
+Betas estimation: 590.370 sec
+Betas: [  4.83808444e-01   4.91655511e-17   2.57204730e-01   2.58986826e-01]
+
+
+Iteration 1
+Alphas estimation: 14.750 sec
+Betas estimation: 594.636 sec
+Betas: [  4.94335931e-01   2.64895580e-17   2.25047893e-01   2.80616176e-01]
+
+
+Iteration 2
+Alphas estimation: 14.943 sec
+Betas estimation: 594.808 sec
+Betas: [  5.04817483e-01   5.54114611e-17   1.93497131e-01   3.01685386e-01]
+
+
+Iteration 3
+Alphas estimation: 14.532 sec
+Betas estimation: 587.057 sec
+Betas: [  5.15253171e-01   2.56851275e-17   1.62539732e-01   3.22207097e-01]
+
+
+Iteration 4
+Alphas estimation: 14.688 sec
+Betas estimation: 591.901 sec
+Betas: [  5.25643095e-01   4.13687586e-17   1.32163270e-01   3.42193635e-01]
+
+
+Iteration 5
+Alphas estimation: 14.750 sec
+Betas estimation: 592.850 sec
+Betas: [  5.35987376e-01   1.94871454e-17   1.02355603e-01   3.61657021e-01]
+
+
+Iteration 6
+Alphas estimation: 14.844 sec
+Betas estimation: 595.089 sec
+Betas: [  5.46286158e-01   9.30051413e-18   7.31048629e-02   3.80608980e-01]
+
+
+Iteration 7
+Alphas estimation: 14.766 sec
+Betas estimation: 595.828 sec
+Betas: [  5.56539605e-01   1.50509027e-17   4.43994499e-02   3.99060945e-01]
+
+
+Iteration 8
+Alphas estimation: 14.657 sec
+Betas estimation: 737.701 sec
+Betas: [  5.66747890e-01   2.09251019e-17   1.62280960e-02   4.17024014e-01]
+
+
+Iteration 9
+Alphas estimation: 14.516 sec
+Betas estimation: 573.073 sec
+Betas: [  5.75471544e-01   0.00000000e+00   2.08166817e-17   4.24528456e-01]
+
+
+All blocks complete!
+
+CV: 17423.246 sec
+MSE = 0.0568707386913

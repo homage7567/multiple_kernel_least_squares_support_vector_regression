@@ -1,0 +1,192 @@
+Train size: 250; Test size: 125
+Starting block 1!
+Iteration 0
+Alphas estimation: 12.641 sec
+Betas estimation: 1293.789 sec
+Betas: [  3.69239165e-01   4.17851517e-16   5.03619846e-01   1.27140989e-01]
+
+
+Iteration 1
+Alphas estimation: 12.266 sec
+Betas estimation: 722.466 sec
+Betas: [  4.04626935e-01   1.57209315e-18   4.87127897e-01   1.08245168e-01]
+
+
+Iteration 2
+Alphas estimation: 12.781 sec
+Betas estimation: 739.951 sec
+Betas: [  4.37355137e-01   1.49077799e-18   4.75049930e-01   8.75949333e-02]
+
+
+Iteration 3
+Alphas estimation: 12.141 sec
+Betas estimation: 581.167 sec
+Betas: [  4.68000919e-01   1.40946282e-18   4.65629469e-01   6.63696115e-02]
+
+
+Iteration 4
+Alphas estimation: 12.282 sec
+Betas estimation: 728.591 sec
+Betas: [  4.97460778e-01   5.20417043e-18   4.57676330e-01   4.48628915e-02]
+
+
+Iteration 5
+Alphas estimation: 13.719 sec
+Betas estimation: 763.151 sec
+Betas: [  5.24088505e-01   2.16840434e-17   4.54518063e-01   2.13934330e-02]
+
+
+Iteration 6
+Alphas estimation: 12.875 sec
+Betas estimation: 735.498 sec
+Betas: [ 0.5499876  0.         0.4500124  0.       ]
+
+
+Iteration 7
+Alphas estimation: 11.594 sec
+Betas estimation: 847.828 sec
+Betas: [ 0.57241369  0.02215766  0.40542865  0.        ]
+
+
+Iteration 8
+Alphas estimation: 13.031 sec
+Betas estimation: 847.093 sec
+Betas: [  5.92038724e-01   4.74519857e-02   3.60509291e-01   1.51788304e-18]
+
+
+Iteration 9
+Alphas estimation: 12.047 sec
+Betas estimation: 832.702 sec
+Betas: [  6.09133897e-01   7.55389826e-02   3.15327121e-01   8.67361738e-19]
+
+
+Block 1 complete!
+
+Train size: 250; Test size: 125
+Starting block 2!
+Iteration 0
+Alphas estimation: 11.610 sec
+Betas estimation: 825.586 sec
+Betas: [  6.33035279e-01   9.01985407e-02   2.76766180e-01   2.11419424e-18]
+
+
+Iteration 1
+Alphas estimation: 11.640 sec
+Betas estimation: 822.658 sec
+Betas: [  6.54828786e-01   1.07291631e-01   2.37879583e-01   3.79470760e-18]
+
+
+Iteration 2
+Alphas estimation: 12.594 sec
+Betas estimation: 828.984 sec
+Betas: [ 0.67464024  0.12663574  0.19872402  0.        ]
+
+
+Iteration 3
+Alphas estimation: 12.313 sec
+Betas estimation: 821.983 sec
+Betas: [  6.92587714e-01   1.48061726e-01   1.59350560e-01   4.44522891e-18]
+
+
+Iteration 4
+Alphas estimation: 11.938 sec
+Betas estimation: 836.390 sec
+Betas: [ 0.70878174  0.17141215  0.11980611  0.        ]
+
+
+Iteration 5
+Alphas estimation: 11.781 sec
+Betas estimation: 817.733 sec
+Betas: [  7.23324967e-01   1.96541256e-01   8.01337767e-02   8.67361738e-19]
+
+
+Iteration 6
+Alphas estimation: 12.703 sec
+Betas estimation: 833.859 sec
+Betas: [  7.36313086e-01   2.23312567e-01   4.03743470e-02   2.81892565e-18]
+
+
+Iteration 7
+Alphas estimation: 11.813 sec
+Betas estimation: 883.438 sec
+Betas: [  7.47834832e-01   2.51598824e-01   5.66343832e-04   0.00000000e+00]
+
+
+Iteration 8
+Alphas estimation: 13.422 sec
+Betas estimation: 438.789 sec
+Betas: [  7.80239355e-01   2.19760645e-01   6.07153217e-18   1.73472348e-18]
+
+
+Iteration 9
+Alphas estimation: 12.922 sec
+Betas estimation: 438.820 sec
+Betas: [  8.11482902e-01   1.88517098e-01   3.46944695e-18   2.25514052e-17]
+
+
+Block 2 complete!
+
+Starting final block
+Train size: 250; Test size: 125
+Iteration 0
+Alphas estimation: 13.422 sec
+Betas estimation: 435.086 sec
+Betas: [  8.36311786e-01   1.63688214e-01   4.33680869e-18   0.00000000e+00]
+
+
+Iteration 1
+Alphas estimation: 12.844 sec
+Betas estimation: 429.258 sec
+Betas: [  8.60025410e-01   1.39974590e-01   8.67361738e-19   0.00000000e+00]
+
+
+Iteration 2
+Alphas estimation: 13.016 sec
+Betas estimation: 438.789 sec
+Betas: [ 0.88269685  0.11730315  0.          0.        ]
+
+
+Iteration 3
+Alphas estimation: 12.860 sec
+Betas estimation: 436.898 sec
+Betas: [  9.04392369e-01   9.56076305e-02   6.07153217e-18   0.00000000e+00]
+
+
+Iteration 4
+Alphas estimation: 12.875 sec
+Betas estimation: 431.039 sec
+Betas: [  9.25172503e-01   7.48274971e-02   2.60208521e-18   0.00000000e+00]
+
+
+Iteration 5
+Alphas estimation: 13.250 sec
+Betas estimation: 437.023 sec
+Betas: [  9.45092551e-01   5.49074492e-02   0.00000000e+00   8.67361738e-19]
+
+
+Iteration 6
+Alphas estimation: 13.469 sec
+Betas estimation: 432.289 sec
+Betas: [  9.64202996e-01   3.57970041e-02   5.63785130e-18   1.08420217e-17]
+
+
+Iteration 7
+Alphas estimation: 11.953 sec
+Betas estimation: 437.289 sec
+Betas: [  9.82550360e-01   1.74496401e-02   0.00000000e+00   3.46944695e-18]
+
+
+Iteration 8
+Alphas estimation: 12.453 sec
+Betas estimation: 429.930 sec
+Betas: [  1.00000000e+00   2.77555756e-17   0.00000000e+00   2.25514052e-17]
+
+
+Iteration 9
+Alphas estimation: 12.672 sec
+Betas estimation: 142.393 sec
+Betas: [  1.00000000e+00   2.77555756e-17   0.00000000e+00   2.25514052e-17]
+All blocks complete!
+
+CV: 20079.007 sec
+MSE = 0.0523841152833
