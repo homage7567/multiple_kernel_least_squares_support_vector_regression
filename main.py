@@ -54,10 +54,12 @@ def main():
             y = f(x)
             rnd = np.random.RandomState()
             error = noise * rnd.rand(len(x))
-            sign = rnd.randint(-1, 1)
-            # outliers = rnd.randint(0, len(x), n_outliers)
-            # error[outliers] *= 1
-            return y + error * sign
+            sign = [-1, 1]
+            for i in range(len(error)):
+                error[i] *= sign[rnd.random_integers(0, 1)]
+            outliers = rnd.randint(0, len(x), n_outliers)
+            error[outliers] *= 1
+            return y + error
 
         def plot_data():
             y_cur = [f(i) for i in x]
@@ -110,8 +112,8 @@ def main():
     x = np.arange(0.0, 30.0, 0.08)
     noise = 0.3
 
-    create_data("test2.xlsx", draw=True)
-    # researches(data)
+    # create_data("test2.xlsx", draw=True)
+    researches(data)
     # one_research(data, [1.4], 20)
 
 if __name__ == '__main__':
