@@ -2,108 +2,73 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a5c54b1-0f19-4d2e-8404-6f17363a641c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 1.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 1.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 11.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 11.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 13.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 13.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 15.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 15.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 17.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 17.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 19.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 19.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 3.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 3.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 5.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 5.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 7.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 7.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 9.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.41, 1.415, 1.42, 1.425], 9.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 1.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 1.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 11.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 11.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 13.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 13.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 15.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 15.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 17.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 17.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 19.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 19.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 3.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 3.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 5.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 5.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 7.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 7.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 9.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.43, 1.435, 1.44, 1.445], 9.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 1.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 1.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 11.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 11.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 13.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 13.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 15.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 15.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 17.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 17.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 19.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 19.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 3.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 3.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 5.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 5.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 7.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 7.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 9.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.45, 1.455, 1.46, 1.465], 9.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 1.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 1.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 11.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 11.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 13.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 13.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 15.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 15.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 17.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 17.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 19.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 19.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 3.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 3.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 5.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 5.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 7.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 7.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 9.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.47, 1.475, 1.48, 1.485], 9.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 1.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 1.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 11.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 11.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 13.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 13.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 15.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 15.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 17.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 17.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 19.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 19.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 3.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 3.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 5.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 5.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 7.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 7.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 9.0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.49, 1.495, 1.5, 1.505], 9.0.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/Лист Microsoft Office Excel.xlsx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Research/report.txt" afterPath="$PROJECT_DIR$/Research/report.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 1.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 1.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 11.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 11.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 16.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 16.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 21.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 6.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[0.1, 0.4, 0.7, 1.0], 6.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 1.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 1.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 11.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 11.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 16.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 16.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 21.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 6.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.3, 1.6, 1.9, 2.2], 6.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.5, 3.0, 4.5, 6.0], 10.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[1.5, 3.0, 4.5, 6.0], 10.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 1.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 1.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 11.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 11.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 16.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 16.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 21.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 21.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 26.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 26.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 31.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 31.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 36.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 36.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 41.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 41.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 46.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 46.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 6.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[2.5, 2.8, 3.1, 3.4], 6.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 1.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 1.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 11.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 11.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 16.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 16.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 200.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 200.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 21.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 21.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 26.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 26.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 31.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 31.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 36.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 36.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 41.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 41.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 46.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 46.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 6.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[3.7, 4.0, 4.3, 4.6], 6.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[7.0, 8.0, 9.5, 10.0], 10.0.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/[7.0, 8.0, 9.5, 10.0], 10.0.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Research/report.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test2.xlsx" afterPath="$PROJECT_DIR$/test2.xlsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lssvm.py" afterPath="$PROJECT_DIR$/lssvm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
     </list>
     <ignored path="lssvm_regression.iws" />
@@ -139,15 +104,15 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="107" column="41" selection-start-line="107" selection-start-column="41" selection-end-line="107" selection-end-column="41" />
+            <state relative-caret-position="220">
+              <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#201#260#0" expanded="false" />
-                <element signature="e#309#541#0" expanded="false" />
-                <element signature="e#606#1551#0" expanded="false" />
-                <element signature="e#1617#2167#0" expanded="false" />
-                <element signature="e#2203#2910#0" expanded="false" />
+                <element signature="e#201#258#0" expanded="false" />
+                <element signature="e#747#1679#0" expanded="false" />
+                <element signature="e#2093#2285#0" expanded="false" />
+                <element signature="e#2490#3174#0" expanded="false" />
+                <element signature="e#3238#3884#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -156,25 +121,13 @@
       <file leaf-file-name="lssvm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lssvm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="54" column="29" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
+            <state relative-caret-position="-799">
+              <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#387#710#0" expanded="false" />
-                <element signature="e#3327#3791#0" expanded="false" />
-                <element signature="e#3851#3990#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cross_validation.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cross_validation.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#1431#1870#0" expanded="false" />
+                <element signature="e#1915#2158#0" expanded="false" />
+                <element signature="e#3740#3879#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -240,6 +193,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -260,8 +215,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -476,18 +429,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24011713" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16544656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28548896" sideWeight="0.5161054" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2823344" sideWeight="0.53587115" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28548896" sideWeight="0.4838946" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28548896" sideWeight="0.79502195" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28391168" sideWeight="0.49375" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2823344" sideWeight="0.46412885" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -545,7 +498,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="195" />
+      <option name="time" value="202" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -561,9 +514,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -574,11 +527,11 @@
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -589,9 +542,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -602,11 +555,11 @@
           <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -617,9 +570,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -630,11 +583,11 @@
           <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -645,9 +598,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -658,11 +611,11 @@
           <caret line="9" column="40" selection-start-line="9" selection-start-column="40" selection-end-line="9" selection-end-column="40" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -673,9 +626,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -686,11 +639,11 @@
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -701,9 +654,9 @@
           <caret line="52" column="30" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -714,11 +667,11 @@
           <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -729,9 +682,9 @@
           <caret line="49" column="31" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -742,11 +695,11 @@
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -757,9 +710,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -770,11 +723,11 @@
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -785,9 +738,9 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -797,7 +750,6 @@
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/sklearn/svm/classes.py" />
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/sklearn/svm/base.py" />
     <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/pandas/io/parsers.py" />
-    <entry file="file://C:/Program Files/Anaconda3/Lib/site-packages/numpy/linalg/linalg.py" />
     <entry file="file://C:/Program Files/Anaconda3/Lib/site-packages/pandas/core/internals.py" />
     <entry file="file://C:/Program Files/Anaconda3/Lib/site-packages/pandas/core/common.py" />
     <entry file="file://C:/Program Files/Anaconda3/Lib/site-packages/pandas/core/ops.py" />
@@ -861,7 +813,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1192">
           <caret line="276" column="0" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -873,40 +824,46 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests.txt" />
+    <entry file="file://C:/Program Files/Anaconda3/Lib/site-packages/numpy/linalg/linalg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="201" column="0" selection-start-line="201" selection-start-column="0" selection-end-line="201" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cross_validation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="39" selection-start-line="28" selection-start-column="39" selection-end-line="28" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lssvm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="54" column="29" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
+        <state relative-caret-position="-799">
+          <caret line="40" column="30" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#387#710#0" expanded="false" />
-            <element signature="e#3327#3791#0" expanded="false" />
-            <element signature="e#3851#3990#0" expanded="false" />
+            <element signature="e#1431#1870#0" expanded="false" />
+            <element signature="e#1915#2158#0" expanded="false" />
+            <element signature="e#3740#3879#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="107" column="41" selection-start-line="107" selection-start-column="41" selection-end-line="107" selection-end-column="41" />
+        <state relative-caret-position="220">
+          <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#201#260#0" expanded="false" />
-            <element signature="e#309#541#0" expanded="false" />
-            <element signature="e#606#1551#0" expanded="false" />
-            <element signature="e#1617#2167#0" expanded="false" />
-            <element signature="e#2203#2910#0" expanded="false" />
+            <element signature="e#201#258#0" expanded="false" />
+            <element signature="e#747#1679#0" expanded="false" />
+            <element signature="e#2093#2285#0" expanded="false" />
+            <element signature="e#2490#3174#0" expanded="false" />
+            <element signature="e#3238#3884#0" expanded="false" />
           </folding>
         </state>
       </provider>

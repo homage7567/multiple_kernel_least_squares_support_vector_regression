@@ -16,7 +16,7 @@ class LSSVMRegression(object):
     __betas = 0
     __kernel_cnt = 0
 
-    def __init__(self, kernels, error_param=0.001, max_iter=10, c=1.0):
+    def __init__(self, kernels, error_param=0.00001, max_iter=10, c=1.0):
         self.__kernels = kernels
         self.__error_param = error_param
         self.__max_iter = max_iter
@@ -27,27 +27,21 @@ class LSSVMRegression(object):
             self.__betas[i] = 1.0 / self.__kernel_cnt
 
     def fit(self, X_train, Y_train):
-        n = len(X_train)
-        self.__X_train = X_train
-        cur_iter = 0
-
         def __calculate_alpha_b():
             I = np.ones(n, dtype=float)
             H = np.zeros((n, n), dtype=float)
             for i in range(n):
-                for j in range(i + 1):
+                for j in range(n):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
-                        k += self.__betas[d] * self.__kernels[d].K(X_train.iloc[i], X_train.iloc[j])
-                    H[i, j], H[j, i] = k, k
+                        k += self.__betas[d] * self.__kernels[d].K(X_train.iloc[i].T, X_train.iloc[j])
+                    H[i, j] = k
                 H[i, i] += 1.0 / self.__c
 
             Hinv = lalg.inv(H)
-            I_Hinv = np.matmul(I, Hinv)
-            I_Hinv_Y = np.matmul(I_Hinv, Y_train)
-            I_Hinv_I = np.matmul(I_Hinv, I)
-            b = I_Hinv_Y / I_Hinv_I
-            alpha = np.matmul(Hinv, Y_train - I * b)
+            y = np.array(Y_train)
+            b = I.T @ Hinv @ y / (I.T @ Hinv @ I)
+            alpha = Hinv @ (y - I * b)
             return alpha, b
 
         def __calculate_beta(betas):
@@ -68,11 +62,16 @@ class LSSVMRegression(object):
             betas = minimize(__calculate_beta, self.__betas, method='SLSQP', bounds=bnds, constraints=cons)
             return betas.x
 
+        n = len(X_train)
+        self.__X_train = X_train
+        cur_iter = 0
+
         prev_beta_norm = np.linalg.norm(self.__betas)
         prev_alpha_norm = np.linalg.norm(self.__alpha)
 
         while cur_iter < self.__max_iter:
             print("Iteration " + str(cur_iter))
+
             with Timer("Alphas estimation"):
                 self.__alpha, self.__b = __calculate_alpha_b()
 
