@@ -3,7 +3,6 @@ import numpy.linalg as lalg
 from timer import Timer
 from scipy.optimize import minimize
 
-
 class LSSVMRegression(object):
     __X_train = 0
     __kernels = 0
@@ -31,17 +30,18 @@ class LSSVMRegression(object):
             I = np.ones(n, dtype=float)
             H = np.zeros((n, n), dtype=float)
             for i in range(n):
-                for j in range(n):
+                for j in range(i + 1):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
                         k += self.__betas[d] * self.__kernels[d].K(X_train.iloc[i].T, X_train.iloc[j])
-                    H[i, j] = k
+                    H[i, j], H[j, i] = k, k
                 H[i, i] += 1.0 / self.__c
 
             Hinv = lalg.inv(H)
             y = np.array(Y_train)
-            b = I.T @ Hinv @ y / (I.T @ Hinv @ I)
+            b = (I.T @ Hinv @ y) / (I.T @ Hinv @ I)
             alpha = Hinv @ (y - I * b)
+
             return alpha, b
 
         def __calculate_beta(betas):
@@ -50,7 +50,7 @@ class LSSVMRegression(object):
                 sum_d = 0.0
                 for d in range(self.__kernel_cnt):
                     K = [self.__kernels[d].K(X_train.iloc[i], X_train.iloc[k]) for k in range(n)]
-                    beta_K_alpha = betas[d] * np.matmul(K, self.__alpha)
+                    beta_K_alpha = betas[d] * np.dot(K, self.__alpha)
                     sum_d += beta_K_alpha
                 sum += (Y_train.iloc[i] - sum_d - self.__b)**2
             sum += 1
@@ -60,66 +60,59 @@ class LSSVMRegression(object):
             cons = ({'type': 'eq', 'fun': lambda x: sum(x) - 1.0})
             bnds = [(0.0, 1.0) for i in self.__betas]
             betas = minimize(__calculate_beta, self.__betas, method='SLSQP', bounds=bnds, constraints=cons)
-            return betas.x
+            return betas.x, betas.fun
 
         n = len(X_train)
         self.__X_train = X_train
         cur_iter = 0
 
         prev_beta_norm = np.linalg.norm(self.__betas)
-        prev_alpha_norm = np.linalg.norm(self.__alpha)
+        prev_func_value_norm = 0
 
         while cur_iter < self.__max_iter:
-            print("Iteration " + str(cur_iter))
+            print("Iteration " + str(cur_iter + 1))
 
             with Timer("Alphas estimation"):
                 self.__alpha, self.__b = __calculate_alpha_b()
 
             with Timer("Betas estimation"):
-                self.__betas = __minimize_beta()
+                self.__betas, func_value = __minimize_beta()
             print("Betas: " + str(self.__betas))
 
             beta_norm = np.linalg.norm(self.__betas)
-            alpha_norm = np.linalg.norm(self.__alpha)
+            func_value_norm = np.linalg.norm(func_value)
             beta_delta = abs(prev_beta_norm - beta_norm) < self.__error_param
-            alpha_delta = abs(prev_alpha_norm - alpha_norm) < self.__error_param
-            if beta_delta or alpha_delta: break
+            func_value_delta = abs(prev_func_value_norm - func_value_norm) < self.__error_param
+            if beta_delta and func_value_delta: break
 
             prev_beta_norm = beta_norm
-            prev_alpha_norm = alpha_norm
+            prev_func_value_norm = func_value
             cur_iter += 1
             print("\n")
         return self.__alpha, self.__b
 
     def predict(self, X_test):
-        def calculate_y(xi):
+        def calculate_y(x):
             sum_j = 0.0
             for j in range(len(self.__X_train)):
                 sum_d = 0.0
                 xj = self.__X_train.iloc[j]
                 for d in range(self.__kernel_cnt):
-                    sum_d += self.__betas[d] * self.__kernels[d].K(xi, xj)
+                    sum_d += self.__betas[d] * self.__kernels[d].K(x, xj)
                 sum_j += self.__alpha[j] * sum_d
             return sum_j + self.__b
 
         y = [calculate_y(X_test.iloc[i]) for i in range(len(X_test))]
         return y
 
-    @staticmethod
-    def calculate_mse(X, Y, f):
-        mse = 0.0
-        n = len(X)
-        for i in range(n):
-            mse += (f(X[i]) - Y[i])**2
-        mse /= n
-        return np.sqrt(mse)
-
 
 class Kernel(object):
     __kernel = 0
     __params = []
     __kernel_list = {
-        'gauss': lambda sigma, xi, xj, : np.e**(-1.0 * lalg.norm(xi - xj)**2 / (2 * sigma**2))
+        'rbf': lambda sigma, x, xi, : np.e**(-lalg.norm(x - xi)**2 / (2 * sigma**2)),
+        'linear': lambda x, xi: xi.T @ x,
+        'poly': lambda c, d, x, xi: (1 + xi.T @ x / c)**d
     }
 
     def __init__(self, kernel, params):
@@ -137,5 +130,5 @@ class Kernel(object):
         except KeyError:
             raise ValueError("Select correct kernel! (example: 'gauss')")
 
-    def K(self, xi, xj):
-        return self.__kernel(self.__params[0], xi, xj)
+    def K(self, *args):
+        return self.__kernel(self.__params[0], *args)
