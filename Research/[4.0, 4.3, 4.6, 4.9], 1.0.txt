@@ -1,0 +1,97 @@
+Starting Cross Valdation.
+Train size: 320; Test size: 80
+Starting block 1.
+Iteration 1
+Alphas estimation: 21.391 sec
+Betas estimation: 1077.035 sec
+Betas: [  9.86425403e-01   0.00000000e+00   3.34476370e-17   1.35745970e-02]
+
+
+Iteration 2
+Alphas estimation: 22.500 sec
+Betas estimation: 527.058 sec
+Betas: [ 1.  0.  0.  0.]
+
+
+Iteration 3
+Alphas estimation: 22.979 sec
+Betas estimation: 288.737 sec
+Betas: [ 1.  0.  0.  0.]
+
+
+Iteration 4
+Alphas estimation: 27.969 sec
+Betas estimation: 312.041 sec
+Betas: [ 1.  0.  0.  0.]
+Block 1 complete.
+
+Train size: 320; Test size: 80
+Starting block 2.
+Iteration 1
+Alphas estimation: 28.213 sec
+Betas estimation: 314.170 sec
+Betas: [ 1.  0.  0.  0.]
+
+
+Iteration 2
+Alphas estimation: 29.079 sec
+Betas estimation: 311.041 sec
+Betas: [ 1.  0.  0.  0.]
+Block 2 complete.
+
+Train size: 320; Test size: 80
+Starting block 3.
+Iteration 1
+Alphas estimation: 23.783 sec
+Betas estimation: 301.053 sec
+Betas: [ 1.  0.  0.  0.]
+
+
+Iteration 2
+Alphas estimation: 26.485 sec
+Betas estimation: 309.724 sec
+Betas: [ 1.  0.  0.  0.]
+Block 3 complete.
+
+Train size: 320; Test size: 80
+Starting block 4.
+Iteration 1
+Alphas estimation: 23.141 sec
+Betas estimation: 273.221 sec
+Betas: [ 1.  0.  0.  0.]
+
+
+Iteration 2
+Alphas estimation: 24.609 sec
+Betas estimation: 280.911 sec
+Betas: [ 1.  0.  0.  0.]
+Block 4 complete.
+
+Starting final block
+Train size: 320; Test size: 80
+Iteration 1
+Alphas estimation: 27.563 sec
+Betas estimation: 299.694 sec
+Betas: [ 1.  0.  0.  0.]
+
+
+Iteration 2
+Alphas estimation: 27.329 sec
+Betas estimation: 282.318 sec
+Betas: [ 1.  0.  0.  0.]
+All blocks complete.
+
+Cross Validation: 4903.259 sec
+Iteration 1
+Alphas estimation: 39.204 sec
+Betas estimation: 439.932 sec
+Betas: [ 1.  0.  0.  0.]
+
+
+Iteration 2
+Alphas estimation: 40.657 sec
+Betas estimation: 430.539 sec
+Betas: [ 1.  0.  0.  0.]
+Fit: 975.925 sec
+CV score = 0.109612109278
+MSE = 0.0947777808761

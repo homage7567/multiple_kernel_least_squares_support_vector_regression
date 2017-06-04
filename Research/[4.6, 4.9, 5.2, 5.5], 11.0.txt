@@ -1,0 +1,103 @@
+Starting Cross Valdation.
+Train size: 320; Test size: 80
+Starting block 1.
+Iteration 1
+Alphas estimation: 23.907 sec
+Betas estimation: 1195.506 sec
+Betas: [  6.22766209e-01   2.32236105e-16   2.25514052e-16   3.77233791e-01]
+
+
+Iteration 2
+Alphas estimation: 34.375 sec
+Betas estimation: 599.181 sec
+Betas: [  8.25546954e-01   7.54433151e-16   1.38926747e-15   1.74453046e-01]
+
+
+Iteration 3
+Alphas estimation: 23.579 sec
+Betas estimation: 521.301 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+
+
+Iteration 4
+Alphas estimation: 23.134 sec
+Betas estimation: 278.096 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+
+
+Iteration 5
+Alphas estimation: 22.047 sec
+Betas estimation: 245.129 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+Block 1 complete.
+
+Train size: 320; Test size: 80
+Starting block 2.
+Iteration 1
+Alphas estimation: 22.297 sec
+Betas estimation: 292.067 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+
+
+Iteration 2
+Alphas estimation: 26.688 sec
+Betas estimation: 308.474 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+Block 2 complete.
+
+Train size: 320; Test size: 80
+Starting block 3.
+Iteration 1
+Alphas estimation: 20.282 sec
+Betas estimation: 262.990 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+
+
+Iteration 2
+Alphas estimation: 23.344 sec
+Betas estimation: 297.679 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+Block 3 complete.
+
+Train size: 320; Test size: 80
+Starting block 4.
+Iteration 1
+Alphas estimation: 26.251 sec
+Betas estimation: 277.600 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+
+
+Iteration 2
+Alphas estimation: 113.800 sec
+Betas estimation: 381.150 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+Block 4 complete.
+
+Starting final block
+Train size: 320; Test size: 80
+Iteration 1
+Alphas estimation: 31.860 sec
+Betas estimation: 364.352 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+
+
+Iteration 2
+Alphas estimation: 99.768 sec
+Betas estimation: 281.554 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+All blocks complete.
+
+Cross Validation: 5932.506 sec
+Iteration 1
+Alphas estimation: 76.017 sec
+Betas estimation: 412.104 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+
+
+Iteration 2
+Alphas estimation: 50.907 sec
+Betas estimation: 380.353 sec
+Betas: [  1.00000000e+00   0.00000000e+00   3.90066745e-16   3.33066907e-16]
+Fit: 965.414 sec
+CV score = 0.0856231831231
+MSE = 0.0735149183698

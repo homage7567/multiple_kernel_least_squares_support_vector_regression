@@ -1,0 +1,97 @@
+Starting Cross Valdation.
+Train size: 320; Test size: 80
+Starting block 1.
+Iteration 1
+Alphas estimation: 19.938 sec
+Betas estimation: 1063.848 sec
+Betas: [ 0.83107152  0.          0.          0.16892848]
+
+
+Iteration 2
+Alphas estimation: 22.266 sec
+Betas estimation: 524.167 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+
+
+Iteration 3
+Alphas estimation: 20.828 sec
+Betas estimation: 288.731 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+
+
+Iteration 4
+Alphas estimation: 25.766 sec
+Betas estimation: 310.448 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+Block 1 complete.
+
+Train size: 320; Test size: 80
+Starting block 2.
+Iteration 1
+Alphas estimation: 27.571 sec
+Betas estimation: 311.507 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+
+
+Iteration 2
+Alphas estimation: 26.673 sec
+Betas estimation: 313.599 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+Block 2 complete.
+
+Train size: 320; Test size: 80
+Starting block 3.
+Iteration 1
+Alphas estimation: 24.344 sec
+Betas estimation: 289.120 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+
+
+Iteration 2
+Alphas estimation: 28.156 sec
+Betas estimation: 311.271 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+Block 3 complete.
+
+Train size: 320; Test size: 80
+Starting block 4.
+Iteration 1
+Alphas estimation: 25.813 sec
+Betas estimation: 266.503 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+
+
+Iteration 2
+Alphas estimation: 23.047 sec
+Betas estimation: 277.676 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+Block 4 complete.
+
+Starting final block
+Train size: 320; Test size: 80
+Iteration 1
+Alphas estimation: 26.141 sec
+Betas estimation: 294.132 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+
+
+Iteration 2
+Alphas estimation: 27.204 sec
+Betas estimation: 280.334 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+All blocks complete.
+
+Cross Validation: 4851.118 sec
+Iteration 1
+Alphas estimation: 39.469 sec
+Betas estimation: 433.853 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+
+
+Iteration 2
+Alphas estimation: 35.829 sec
+Betas estimation: 421.791 sec
+Betas: [  1.00000000e+00   3.40005801e-16   1.15879528e-15   1.38777878e-16]
+Fit: 957.208 sec
+CV score = 0.0694509863095
+MSE = 0.0563732195715

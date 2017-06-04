@@ -50,8 +50,8 @@ def one_research(data, kernel_params, reg_param):
 
 def function_estimation(data, mutex, *kernels):
     kernel_params = [k for k in kernels]
-    for r in range(3000, 3001, 50):
-        r /= 10.0
+    for r in range(1, 100, 10):
+        r /= 1.0
         mse, cv = one_research(data, kernel_params, r)
         with mutex:
             report_file = open("Research\\report.txt", "a")
@@ -91,15 +91,15 @@ def main():
         report_file = open("Research\\report.txt", "w+")
         report_file.write("MSE\tCV\tReg_param\tKernel_param\n")
         report_file.close()
-        kp = [i / 1000.0 for i in range(3000, 4000, 100)]
+        kp = [i / 100.0 for i in range(100, 600, 30)]
         i = 0
         thread_list = []
         mutex = mp.Lock()
 
         with Timer("Time with threads"):
-            while i < len(kp):
+            while i < len(kp) - 4:
                 thread = mp.Process(target=function_estimation,
-                                    args=(data, mutex, kp[i]))
+                                    args=(data, mutex, kp[i], kp[i + 1], kp[i + 2], kp[i + 3]))
                 thread_list.append(thread)
                 i += 1
 
@@ -107,6 +107,8 @@ def main():
                 thread.start()
             for thread in thread_list:
                 thread.join()
+
+            i += 2
 
     datafile = "sinc_03.xlsx"
     data = pd.read_excel(datafile, header=0)

@@ -3,6 +3,7 @@ import numpy.linalg as lalg
 from timer import Timer
 from scipy.optimize import minimize
 
+
 class LSSVMRegression(object):
     __X_train = 0
     __kernels = 0
@@ -16,6 +17,13 @@ class LSSVMRegression(object):
     __kernel_cnt = 0
 
     def __init__(self, kernels, error_param=0.00001, max_iter=10, c=1.0):
+        '''
+        Инициализация класса для оценивания модели
+        :param kernels: Набор ядер
+        :param error_param: Точность вычислеинй
+        :param max_iter: Максимальное количество итераций
+        :param c: Параметр регуляризации
+        '''
         self.__kernels = kernels
         self.__error_param = error_param
         self.__max_iter = max_iter
@@ -26,7 +34,17 @@ class LSSVMRegression(object):
             self.__betas[i] = 1.0 / self.__kernel_cnt
 
     def fit(self, X_train, Y_train):
+        '''
+        Алгоритм обучения MK LS SVM по тренировочной выборке
+        :param X_train: Набор аргументов из тренировочной выборки
+        :param Y_train: Набор значений функции из тренировочной выборки
+        :return: Параметры модели: альфа и значение смещения b
+        '''
         def __calculate_alpha_b():
+            '''
+            Оценка параметров: альфа и значения смещения b
+            :return: Оценённые параметры альфа и значения смещения b
+            '''
             I = np.ones(n, dtype=float)
             H = np.zeros((n, n), dtype=float)
             for i in range(n):
@@ -45,6 +63,11 @@ class LSSVMRegression(object):
             return alpha, b
 
         def __calculate_beta(betas):
+            '''
+            Функционал, который необходимо
+            :param betas:
+            :return:
+            '''
             sum = 0.0
             for i in range(n):
                 sum_d = 0.0
@@ -57,6 +80,11 @@ class LSSVMRegression(object):
             return sum
 
         def __minimize_beta():
+            '''
+            Решение задачи квадратичного программирования для нахождения оптимальные весовых коэффициентах при ядрах
+            методов последовательного квадратичного программирования (SLSQP)
+            :return:
+            '''
             cons = ({'type': 'eq', 'fun': lambda x: sum(x) - 1.0})
             bnds = [(0.0, 1.0) for i in self.__betas]
             betas = minimize(__calculate_beta, self.__betas, method='SLSQP', bounds=bnds, constraints=cons)
@@ -92,6 +120,11 @@ class LSSVMRegression(object):
         return self.__alpha, self.__b
 
     def predict(self, X_test):
+        '''
+        Оценка значений по аргументам из обучающей выборки
+        :param X_test:
+        :return:
+        '''
         def calculate_y(x):
             sum_j = 0.0
             for j in range(len(self.__X_train)):
@@ -107,6 +140,9 @@ class LSSVMRegression(object):
 
 
 class Kernel(object):
+    '''
+    Класс, определяющий работу с ядром
+    '''
     __kernel = 0
     __params = []
     __kernel_list = {
@@ -116,12 +152,17 @@ class Kernel(object):
     }
 
     def __init__(self, kernel, params):
+        '''
+        Инициализация класса для работы с ядром
+        :param kernel: Строковый параметр, принимающий название ядра
+        :param params: Параметры ядерной функции
+        '''
         self.__kernel = self.__select_kernel(kernel)
         self.__params = params
 
     def __select_kernel(self, kenrel):
         """
-        Выбор ядра из словаря
+        Выбор ядра из списки ядер
         :param kenrel: Название выбираемого ядра
         :return: Выбранное ядро
         """
@@ -131,4 +172,9 @@ class Kernel(object):
             raise ValueError("Select correct kernel! (example: 'gauss')")
 
     def K(self, *args):
+        '''
+        Выполнения ядерного преборазования
+        :param args: Аргументы, передаваемые в ядерную функцию
+        :return: Результат ядерного преобразования
+        '''
         return self.__kernel(self.__params[0], *args)
