@@ -4,13 +4,13 @@ import pandas as pd
 
 class CV(object):
     @staticmethod
-    def cross_val_score(X, Y, classificator, func, segment_cnt=10):
+    def cross_val_score(X, Y, classificator, func, segment_cnt=2):
         size = len(X) // segment_cnt
         data = list(zip(X, Y))
         np.random.shuffle(data)
         data = np.array(data)
-        X_data = pd.Series([x[0] for x in data])
-        Y_data = pd.Series([y[1] for y in data])
+        X_data = np.array([x[0] for x in data])
+        Y_data = np.array([y[1] for y in data])
 
         print("Starting Cross Valdation.")
         # Первый блок
@@ -30,9 +30,8 @@ class CV(object):
             x_train = X_data[:i * size]
             y_train = Y_data[:i * size]
             x_test = X_data[i * size:(i + 1) * size]
-            x_test = x_test.reset_index(drop=True)
-            x_train = pd.concat([x_train, X_data[(i + 1) * size:]], ignore_index=True)
-            y_train = pd.concat([y_train, Y_data[(i + 1) * size:]], ignore_index=True)
+            x_train = np.concatenate([x_train, X_data[(i + 1) * size:]])
+            y_train = np.concatenate([y_train, Y_data[(i + 1) * size:]])
             print("Train size: " + str(len(x_train)) + "; Test size: " + str(len(x_test)))
             print("Starting block " + str(i + 1) + ".")
             classificator.fit(x_train, y_train)
@@ -43,7 +42,6 @@ class CV(object):
 
         # Последний блок
         x_test = X_data[(segment_cnt - 1) * size:]
-        x_test = x_test.reset_index(drop=True)
         x_train = X_data[:(segment_cnt - 1) * size]
         y_train = Y_data[:(segment_cnt - 1) * size]
         print("Starting final block")

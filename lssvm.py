@@ -4,7 +4,7 @@ from timer import Timer
 from scipy.optimize import minimize
 
 
-class LSSVMRegression(object):
+class MKLSSVR(object):
     __X_train = 0
     __kernels = 0
     __e = 0
@@ -51,7 +51,7 @@ class LSSVMRegression(object):
                 for j in range(i + 1):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
-                        k += self.__betas[d] * self.__kernels[d].K(X_train.iloc[i].T, X_train.iloc[j])
+                        k += self.__betas[d] * self.__kernels[d].K(X_train[i].T, X_train[j])
                     H[i, j], H[j, i] = k, k
                 H[i, i] += 1.0 / self.__c
 
@@ -72,10 +72,10 @@ class LSSVMRegression(object):
             for i in range(n):
                 sum_d = 0.0
                 for d in range(self.__kernel_cnt):
-                    K = [self.__kernels[d].K(X_train.iloc[i], X_train.iloc[k]) for k in range(n)]
+                    K = [self.__kernels[d].K(X_train[i], X_train[k]) for k in range(n)]
                     beta_K_alpha = betas[d] * np.dot(K, self.__alpha)
                     sum_d += beta_K_alpha
-                sum += (Y_train.iloc[i] - sum_d - self.__b)**2
+                sum += (Y_train[i] - sum_d - self.__b)**2
             sum += 1
             return sum
 
@@ -103,18 +103,21 @@ class LSSVMRegression(object):
             with Timer("Alphas estimation"):
                 self.__alpha, self.__b = __calculate_alpha_b()
 
-            with Timer("Betas estimation"):
-                self.__betas, func_value = __minimize_beta()
-            print("Betas: " + str(self.__betas))
+            if len(self.__betas) > 1:
+                with Timer("Betas estimation"):
+                    self.__betas, func_value = __minimize_beta()
+                beta_norm = np.linalg.norm(self.__betas)
+                func_value_norm = np.linalg.norm(func_value)
+                beta_delta = abs(prev_beta_norm - beta_norm) < self.__error_param
+                func_value_delta = abs(prev_func_value_norm - func_value_norm) < self.__error_param
+                if beta_delta and func_value_delta: break
+                prev_beta_norm = beta_norm
+                prev_func_value_norm = func_value
+                print("Betas: " + str(self.__betas))
+            else:
+                print("Betas: " + str(self.__betas))
+                break
 
-            beta_norm = np.linalg.norm(self.__betas)
-            func_value_norm = np.linalg.norm(func_value)
-            beta_delta = abs(prev_beta_norm - beta_norm) < self.__error_param
-            func_value_delta = abs(prev_func_value_norm - func_value_norm) < self.__error_param
-            if beta_delta and func_value_delta: break
-
-            prev_beta_norm = beta_norm
-            prev_func_value_norm = func_value
             cur_iter += 1
             print("\n")
         return self.__alpha, self.__b
@@ -129,13 +132,13 @@ class LSSVMRegression(object):
             sum_j = 0.0
             for j in range(len(self.__X_train)):
                 sum_d = 0.0
-                xj = self.__X_train.iloc[j]
+                xj = self.__X_train[j]
                 for d in range(self.__kernel_cnt):
                     sum_d += self.__betas[d] * self.__kernels[d].K(x, xj)
                 sum_j += self.__alpha[j] * sum_d
             return sum_j + self.__b
 
-        y = [calculate_y(X_test.iloc[i]) for i in range(len(X_test))]
+        y = [calculate_y(X_test[i]) for i in range(len(X_test))]
         return y
 
 
