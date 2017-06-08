@@ -10,8 +10,9 @@ from matplotlib import pyplot as plt
 
 
 def f(x):
+    return 10 * np.e ** (0.1 * x) * np.sin(0.6 * np.pi * x)
     # return 2 * np.e**(-0.1 * x) * np.sin(0.1 * 2 * np.pi * x)
-    return np.sinc(0.3*x)
+    # return np.sinc(0.3*x)
 
 
 def plot_results(x, y, y_est, file_out, dpi=100, figsize=(32, 16)):
@@ -49,13 +50,14 @@ def research_LSSVR(X_data, Y_data, kernel_params, reg_param):
     kernel_list = [lssvm.Kernel("rbf", [kernel_param]) for kernel_param in kernel_params]
     regr_estimator = lssvm.MKLSSVR(kernel_list, c=reg_param)
     mse, cv_score = start_estimation(X_data, Y_data, regr_estimator, file_out)
-    return mse, cv_score
+    betas = regr_estimator.get_betas()
+    return mse, cv_score, betas
 
 
 def research_SVR(X_data, Y_data, kernel_param, reg_param):
-    file_out = "Research\\" + str(kernel_param) + ", " + str(reg_param)
+    file_out = "Research\\" + str(kernel_param[0]) + ", " + str(reg_param)
     sys.stdout = open(file_out + ".txt", "w+")
-    svr_rbf = SVR(kernel='rbf', C=reg_param, gamma=kernel_param)
+    svr_rbf = SVR(kernel='rbf', C=reg_param, gamma=kernel_param[0])
     mse, cv_score = start_estimation(X_data, Y_data, svr_rbf, file_out)
     return mse, cv_score
 
@@ -64,16 +66,17 @@ def research_block(research_mode, X_data, Y_data, mutex, *kernels):
     kernel_params = [k for k in kernels]
     for r in range(r_min, r_max, r_step):
         r /= r_delta
-        mse, cv = 0.0, 0.0
+        mse, cv, betas = 0.0, 0.0, 0.0
 
         if research_mode == "LSSVR":
-            mse, cv = research_LSSVR(X_data, Y_data, kernel_params, r)
+            mse, cv, betas = research_LSSVR(X_data, Y_data, kernel_params, r)
         if research_mode == "SVR":
             mse, cv = research_SVR(X_data, Y_data, kernel_params, r)
 
         with mutex:
             report_file = open("Research\\report.txt", "a")
-            report_file.write(str(mse) + "\t" + str(cv) + "\t" + str(r) + "\t" + str(kernel_params) + "\n")
+            report_file.write(str(mse) + "\t" + str(cv) + "\t" + str(r) + "\t" + str(kernel_params) + "\t" +
+                              str(betas) + "\n")
             report_file.close()
     return
 
@@ -103,8 +106,8 @@ def main():
             plt.legend()
             plt.show()
 
-        noise = 0.2
-        x = np.arange(-20.0, 20.0, 0.1)
+        noise = 4.2
+        x = np.arange(-10.0, 30.0, 0.1)
         y = generate_data(n_outliers=4)
         if draw: plot_data()
         df = pd.DataFrame({
@@ -114,7 +117,7 @@ def main():
 
     def researches(research_mode):
         report_file = open("Research\\report.txt", "w+")
-        report_file.write("MSE\tCV\tReg_param\tKernel_param\n")
+        report_file.write("MSE\tCV\tReg_param\tKernel_param\tKernel_weight\n")
         report_file.close()
         kp = [i / k_delta for i in range(k_min, k_max, k_step)]
         i = 0
@@ -122,25 +125,26 @@ def main():
         mutex = mp.Lock()
 
         with Timer("Time with threads"):
-            while i < len(kp):
+            while i < len(kp) - 4:
                 thread = mp.Process(target=research_block,
-                                    args=(research_mode, X_data, Y_data, mutex, kp[i]))
+                                    args=(research_mode, X_data, Y_data, mutex, kp[i], kp[i + 1], kp[i + 2], kp[i + 3]))
+                                    #args=(research_mode, X_data, Y_data, mutex, kp[i]))
                 thread_list.append(thread)
-                i += 1
+                i += 2
 
             for thread in thread_list:
                 thread.start()
             for thread in thread_list:
                 thread.join()
 
-    datafile = "Datasets\\sinc_03.xlsx"
+    datafile = "Datasets\\exp_sin_10.xlsx"
     data = pd.read_excel(datafile, header=0)
     X_data = data.drop("y", axis=1).as_matrix()
     Y_data = np.array(data["y"])
 
     # data_generate(datafile, draw=True)
     researches("LSSVR")
-    # research_LSSVR(X_data, Y_data, [1.0], 1.0)
+    # research_LSSVR(X_data, Y_data, [0.1, 1.0, 10.0], 1.0)
     # research_SVR(X_data, Y_data, 1.0, 1.0)
 
 if __name__ == '__main__':

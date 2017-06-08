@@ -120,7 +120,7 @@ class MKLSSVR(object):
 
             cur_iter += 1
             print("\n")
-        return self.__alpha, self.__b
+        return self.__alpha, self.__b, self.__betas
 
     def predict(self, X_test):
         '''
@@ -140,6 +140,9 @@ class MKLSSVR(object):
 
         y = [calculate_y(X_test[i]) for i in range(len(X_test))]
         return y
+
+    def get_betas(self):
+        return self.__betas
 
 
 class Kernel(object):
