@@ -11,7 +11,6 @@ from matplotlib import pyplot as plt
 
 def f(x):
     return 10 * np.e ** (0.1 * x) * np.sin(0.6 * np.pi * x)
-    # return 2 * np.e**(-0.1 * x) * np.sin(0.1 * 2 * np.pi * x)
     # return np.sinc(0.3*x)
 
 
@@ -22,8 +21,8 @@ def plot_results(x, y, y_est, file_out, dpi=100, figsize=(32, 16)):
         y_cur.append(f(x[i]))
     plt.figure(dpi=dpi, figsize=figsize)
     plt.plot(x_, y, 'bo', label="Data", alpha=0.5)
-    plt.plot(x_, y_cur, 'k', label="Real function")
-    plt.plot(x_, y_est, "g-", label="Estimated function")
+    plt.plot(x_, y_cur, 'k--', label="Real function")
+    plt.plot(x_, y_est, "r-", label="Estimated function")
     plt.legend()
     plt.savefig(file_out + ".jpeg")
 
@@ -81,7 +80,7 @@ def research_block(research_mode, X_data, Y_data, mutex, *kernels):
     return
 
 # Параметры модедирования
-r_min, r_max, r_step, r_delta = 1, 100, 10, 1.0
+r_min, r_max, r_step, r_delta = 1, 300, 30, 1.0
 k_min, k_max, k_step, k_delta = 1, 10, 1, 1.0
 
 
@@ -106,9 +105,9 @@ def main():
             plt.legend()
             plt.show()
 
-        noise = 4.2
-        x = np.arange(-10.0, 30.0, 0.1)
-        y = generate_data(n_outliers=4)
+        noise = 40.2
+        x = np.arange(-10.0, 30.0, 0.8)
+        y = generate_data(n_outliers=3)
         if draw: plot_data()
         df = pd.DataFrame({
             'x': x,
@@ -125,26 +124,26 @@ def main():
         mutex = mp.Lock()
 
         with Timer("Time with threads"):
-            while i < len(kp) - 4:
+            while i < len(kp):
                 thread = mp.Process(target=research_block,
-                                    args=(research_mode, X_data, Y_data, mutex, kp[i], kp[i + 1], kp[i + 2], kp[i + 3]))
-                                    #args=(research_mode, X_data, Y_data, mutex, kp[i]))
+                                    # args=(research_mode, X_data, Y_data, mutex, kp[i], kp[i + 1], kp[i + 2], kp[i + 3]))
+                                    args=(research_mode, X_data, Y_data, mutex, kp[i]))
                 thread_list.append(thread)
-                i += 2
+                i += 1
 
             for thread in thread_list:
                 thread.start()
             for thread in thread_list:
                 thread.join()
 
-    datafile = "Datasets\\exp_sin_10.xlsx"
+    datafile = "Datasets\\sinc_xtra_noize_400.xlsx"
     data = pd.read_excel(datafile, header=0)
     X_data = data.drop("y", axis=1).as_matrix()
     Y_data = np.array(data["y"])
 
     # data_generate(datafile, draw=True)
-    researches("LSSVR")
-    # research_LSSVR(X_data, Y_data, [0.1, 1.0, 10.0], 1.0)
+    researches("SVR")
+    # research_LSSVR(X_data, Y_data, [1.0], 300.0)
     # research_SVR(X_data, Y_data, 1.0, 1.0)
 
 if __name__ == '__main__':
