@@ -22,6 +22,7 @@ class CV(object):
         classificator.fit(x_train, y_train)
         cv_result = []
         for x in classificator.predict(x_test): cv_result.append(x)
+        classificator.reset_alpha_beta_b()
         cv_score = CV.calculate_mse(x_test, cv_result, func)
         print("Block 1 complete.\n")
 
@@ -37,6 +38,7 @@ class CV(object):
             classificator.fit(x_train, y_train)
             cv_result = []
             for x in classificator.predict(x_test): cv_result.append(x)
+            classificator.reset_alpha_beta_b()
             cv_score = max(cv_score, CV.calculate_mse(x_test, cv_result, func))
             print("Block " + str(i + 1) + " complete.\n")
 
@@ -49,6 +51,7 @@ class CV(object):
         classificator.fit(x_train, y_train)
         cv_result = []
         for x in classificator.predict(x_test): cv_result.append(x)
+        classificator.reset_alpha_beta_b()
         cv_score = max(cv_score, CV.calculate_mse(x_test, cv_result, func))
         print("All blocks complete.\n")
 

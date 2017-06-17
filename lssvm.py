@@ -29,9 +29,7 @@ class MKLSSVR(object):
         self.__max_iter = max_iter
         self.__c = c
         self.__kernel_cnt = len(kernels)
-        self.__betas = np.zeros(self.__kernel_cnt, dtype=float)
-        for i in range(self.__kernel_cnt):
-            self.__betas[i] = 1.0 / self.__kernel_cnt
+        self.__betas = np.array([1.0 / self.__kernel_cnt for _ in range(self.__kernel_cnt)])
 
     def fit(self, X_train, Y_train):
         '''
@@ -48,10 +46,10 @@ class MKLSSVR(object):
             I = np.ones(n, dtype=float)
             H = np.zeros((n, n), dtype=float)
             for i in range(n):
-                for j in range(i + 1):
+                for j in range(i, n):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
-                        k += self.__betas[d] * self.__kernels[d].K(X_train[i].T, X_train[j])
+                        k += self.__betas[d] * self.__kernels[d].K(X_train[i], X_train[j])
                     H[i, j], H[j, i] = k, k
                 H[i, i] += 1.0 / self.__c
 
@@ -62,33 +60,40 @@ class MKLSSVR(object):
 
             return alpha, b
 
-        def __calculate_beta(betas):
-            '''
-            Функционал, который необходимо
-            :param betas:
-            :return:
-            '''
-            sum = 0.0
-            for i in range(n):
-                sum_d = 0.0
-                for d in range(self.__kernel_cnt):
-                    K = [self.__kernels[d].K(X_train[i], X_train[k]) for k in range(n)]
-                    beta_K_alpha = betas[d] * np.dot(K, self.__alpha)
-                    sum_d += beta_K_alpha
-                sum += (Y_train[i] - sum_d - self.__b)**2
-            sum += 1
-            return sum
-
         def __minimize_beta():
             '''
             Решение задачи квадратичного программирования для нахождения оптимальные весовых коэффициентах при ядрах
             методов последовательного квадратичного программирования (SLSQP)
             :return:
             '''
+
+            def __calculate_beta(betas):
+                '''
+                Функционал, который необходимо
+                :param betas:
+                :return:
+                '''
+                sum = 0.0
+                for i in range(n):
+                    sum_k = np.zeros(n, dtype=float)
+                    K = np.zeros(n, dtype=float)
+                    for d in range(self.__kernel_cnt):
+                        for j in range(n):
+                            tmp1 = X_train[i]
+                            tmp2 = X_train[j]
+                            tmp = self.__kernels[d].K(X_train[i], X_train[j])
+                            K[j] = tmp
+                        sum_k += betas[d] * K
+                    sum += (Y_train[i] - np.dot(sum_k, self.__alpha) - self.__b)**2
+                return sum
+
+            prev_fun = __calculate_beta(self.__betas)
+
             cons = ({'type': 'eq', 'fun': lambda x: sum(x) - 1.0})
-            bnds = [(0.0, 1.0) for i in self.__betas]
-            betas = minimize(__calculate_beta, self.__betas, method='SLSQP', bounds=bnds, constraints=cons)
-            return betas.x, betas.fun
+            bnds = [(0.0, 1.0) for _ in self.__betas]
+            betas = minimize(__calculate_beta, self.__betas, method='SLSQP', bounds=bnds, constraints=cons,
+                             options={'maxiter': 5000, 'disp': True})
+            return betas.x, betas.fun, prev_fun
 
         n = len(X_train)
         self.__X_train = X_train
@@ -103,23 +108,25 @@ class MKLSSVR(object):
             with Timer("Alphas estimation"):
                 self.__alpha, self.__b = __calculate_alpha_b()
 
-            if len(self.__betas) > 1:
+            if self.__kernel_cnt > 1:
                 with Timer("Betas estimation"):
-                    self.__betas, func_value = __minimize_beta()
+                    self.__betas, func_value, prev_fun = __minimize_beta()
+
+                    str_beta = ""
+                    for beta in self.__betas: str_beta += '{:.3f} '.format(beta)
+                    print("Betas: " + str_beta)
+                    print("Func Value before optimization: " + '{:.3f}'.format(prev_fun))
+                    print("Func Value after optimization: " + '{:.3f}'.format(func_value))
+
                 beta_norm = np.linalg.norm(self.__betas)
                 func_value_norm = np.linalg.norm(func_value)
                 beta_delta = abs(prev_beta_norm - beta_norm) < self.__error_param
                 func_value_delta = abs(prev_func_value_norm - func_value_norm) < self.__error_param
-                if beta_delta and func_value_delta: break
+                if beta_delta or func_value_delta: break
                 prev_beta_norm = beta_norm
                 prev_func_value_norm = func_value
-                print("Betas: " + str(self.__betas))
-            else:
-                print("Betas: " + str(self.__betas))
-                break
 
             cur_iter += 1
-            print("\n")
         return self.__alpha, self.__b, self.__betas
 
     def predict(self, X_test):
@@ -144,12 +151,18 @@ class MKLSSVR(object):
     def get_betas(self):
         return self.__betas
 
+    def reset_alpha_beta_b(self):
+        self.__betas = np.array([1.0 / self.__kernel_cnt for _ in range(self.__kernel_cnt)])
+        self.__alpha = 0
+        self.__b = 0
+
 
 class Kernel(object):
     '''
     Класс, определяющий работу с ядром
     '''
     __kernel = 0
+    __kernel_name = ''
     __params = []
     __kernel_list = {
         'rbf': lambda sigma, x, xi, : np.e**(-lalg.norm(x - xi)**2 / (2 * sigma**2)),
@@ -166,14 +179,15 @@ class Kernel(object):
         self.__kernel = self.__select_kernel(kernel)
         self.__params = params
 
-    def __select_kernel(self, kenrel):
+    def __select_kernel(self, kernel):
         """
         Выбор ядра из списки ядер
-        :param kenrel: Название выбираемого ядра
+        :param kernel: Название выбираемого ядра
         :return: Выбранное ядро
         """
         try:
-            return self.__kernel_list[kenrel]
+            self.__kernel_name = kernel
+            return self.__kernel_list[kernel]
         except KeyError:
             raise ValueError("Select correct kernel! (example: 'gauss')")
 
@@ -183,4 +197,9 @@ class Kernel(object):
         :param args: Аргументы, передаваемые в ядерную функцию
         :return: Результат ядерного преобразования
         '''
-        return self.__kernel(self.__params[0], *args)
+        if self.__kernel_name == "rbf":
+            return self.__kernel(self.__params[0], *args)
+        if self.__kernel_name == "linear":
+            return self.__kernel(*args)
+        if self.__kernel_name == "poly":
+            return self.__kernel(self.__params[0], self.__params[1], *args)
