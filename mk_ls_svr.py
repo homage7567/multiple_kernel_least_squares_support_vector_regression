@@ -29,7 +29,8 @@ class MKLSSVR(object):
         self.__max_iter = max_iter
         self.__c = c
         self.__kernel_cnt = len(kernels)
-        self.__betas = np.array([1.0 / self.__kernel_cnt for _ in range(self.__kernel_cnt)])
+        self.__betas = np.array(
+            [1.0 / self.__kernel_cnt for _ in range(self.__kernel_cnt)])
 
     def fit(self, X_train, Y_train):
         '''
@@ -49,7 +50,8 @@ class MKLSSVR(object):
                 for j in range(i, n):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
-                        k += self.__betas[d] * self.__kernels[d].K(X_train[i], X_train[j])
+                        k += self.__betas[d] * \
+                            self.__kernels[d].K(X_train[i], X_train[j])
                     H[i, j], H[j, i] = k, k
                 H[i, i] += 1.0 / self.__c
 
@@ -59,6 +61,29 @@ class MKLSSVR(object):
             alpha = Hinv @ (y - I * b)
 
             return alpha, b
+
+        def __weight_calculate_alpha_b():
+            e = self.__alpha / self.__c
+            V = np.zeros((n, n), dtype=float)
+            I = np.ones(n, dtype=float)
+            H = np.zeros((n, n), dtype=float)
+            for i in range(n):
+                # TODO: Реализовать рассчет uk
+                uk = 0
+                V[i][i] = 1 / (self.__c * uk)
+                for j in range(i, n):
+                    k = 0.0
+                    for d in range(self.__kernel_cnt):
+                        k += self.__betas[d] * \
+                            self.__kernels[d].K(X_train[i], X_train[j])
+                    H[i, j], H[j, i] = k, k
+
+            Hinv = lalg.inv(H + V)
+            y = np.array(Y_train)
+            b_star = (I.T @ Hinv @ y) / (I.T @ Hinv @ I)
+            alpha_star = Hinv @ (y - I * b_star)
+
+            return alpha_star, b_star
 
         def __minimize_beta():
             '''
@@ -84,7 +109,8 @@ class MKLSSVR(object):
                             tmp = self.__kernels[d].K(X_train[i], X_train[j])
                             K[j] = tmp
                         sum_k += betas[d] * K
-                    sum += (Y_train[i] - np.dot(sum_k, self.__alpha) - self.__b)**2
+                    sum += (Y_train[i] - np.dot(sum_k,
+                                                self.__alpha) - self.__b)**2
                 return sum
 
             prev_fun = __calculate_beta(self.__betas)
@@ -113,16 +139,22 @@ class MKLSSVR(object):
                     self.__betas, func_value, prev_fun = __minimize_beta()
 
                     str_beta = ""
-                    for beta in self.__betas: str_beta += '{:.3f} '.format(beta)
+                    for beta in self.__betas:
+                        str_beta += '{:.3f} '.format(beta)
                     print("Betas: " + str_beta)
-                    print("Func Value before optimization: " + '{:.3f}'.format(prev_fun))
-                    print("Func Value after optimization: " + '{:.3f}'.format(func_value))
+                    print("Func Value before optimization: " +
+                          '{:.3f}'.format(prev_fun))
+                    print("Func Value after optimization: " +
+                          '{:.3f}'.format(func_value))
 
                 beta_norm = np.linalg.norm(self.__betas)
                 func_value_norm = np.linalg.norm(func_value)
-                beta_delta = abs(prev_beta_norm - beta_norm) < self.__error_param
-                func_value_delta = abs(prev_func_value_norm - func_value_norm) < self.__error_param
-                if beta_delta or func_value_delta: break
+                beta_delta = abs(prev_beta_norm -
+                                 beta_norm) < self.__error_param
+                func_value_delta = abs(
+                    prev_func_value_norm - func_value_norm) < self.__error_param
+                if beta_delta or func_value_delta:
+                    break
                 prev_beta_norm = beta_norm
                 prev_func_value_norm = func_value
 
@@ -152,7 +184,8 @@ class MKLSSVR(object):
         return self.__betas
 
     def reset_alpha_beta_b(self):
-        self.__betas = np.array([1.0 / self.__kernel_cnt for _ in range(self.__kernel_cnt)])
+        self.__betas = np.array(
+            [1.0 / self.__kernel_cnt for _ in range(self.__kernel_cnt)])
         self.__alpha = 0
         self.__b = 0
 
