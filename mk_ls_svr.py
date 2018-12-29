@@ -2,6 +2,7 @@ import numpy as np
 import numpy.linalg as lalg
 from timer import Timer
 from scipy.optimize import minimize
+from statsmodels import robust
 
 
 class MKLSSVR(object):
@@ -15,8 +16,10 @@ class MKLSSVR(object):
     __c = 0
     __betas = 0
     __kernel_cnt = 0
+    __c_one = 0
+    __c_two = 0
 
-    def __init__(self, kernels, error_param=0.00001, max_iter=10, c=1.0):
+    def __init__(self, kernels, error_param=0.00001, max_iter=10, c=1.0, c_one=0.0, c_two=0.0):
         '''
         Инициализация класса для оценивания модели
         :param kernels: Набор ядер
@@ -29,6 +32,8 @@ class MKLSSVR(object):
         self.__max_iter = max_iter
         self.__c = c
         self.__kernel_cnt = len(kernels)
+        self.__c_one = c_one
+        self.__c_two = c_two
         self.__betas = np.array(
             [1.0 / self.__kernel_cnt for _ in range(self.__kernel_cnt)])
 
@@ -63,13 +68,12 @@ class MKLSSVR(object):
             return alpha, b
 
         def __weight_calculate_alpha_b():
-            e = self.__alpha / self.__c
             V = np.zeros((n, n), dtype=float)
             I = np.ones(n, dtype=float)
             H = np.zeros((n, n), dtype=float)
             for i in range(n):
-                # TODO: Реализовать рассчет uk
-                uk = 0
+                ek = self.__alpha[i] / self.__c
+                uk = __calculate_uk(ek, X_train[i])
                 V[i][i] = 1 / (self.__c * uk)
                 for j in range(i, n):
                     k = 0.0
@@ -84,6 +88,21 @@ class MKLSSVR(object):
             alpha_star = Hinv @ (y - I * b_star)
 
             return alpha_star, b_star
+
+        def mad(data, axis=None):
+            return np.mean(np.abs(data - np.mean(data, axis)), axis)
+
+        def __calculate_uk(ek, xi):
+            uk = 0.0
+            s = 1.483*robust.mad(xi)
+
+            if abs(ek/s) <= self.__c_one:
+                uk = 1.0
+            elif self.__c_one <= abs(ek/s) <= self.__c_two:
+                uk = (self.__c_two - abs(ek/s))/(self.__c_two - self.__c_one)
+            else:
+                 uk = 1e-4
+            return uk
 
         def __minimize_beta():
             '''
@@ -133,6 +152,9 @@ class MKLSSVR(object):
 
             with Timer("Alphas estimation"):
                 self.__alpha, self.__b = __calculate_alpha_b()
+
+            with Timer("Robust estimation"):
+                self.__alpha, self.__b = __weight_calculate_alpha_b()
 
             if self.__kernel_cnt > 1:
                 with Timer("Betas estimation"):

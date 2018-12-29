@@ -51,8 +51,8 @@ def start_estimation(X_data, Y_data, regr_estimator, file_out):
     return mse, cv_score
 
 
-def research_LSSVR(X_data, Y_data, kernel_params, reg_param):
-    file_out = "Research\\" + str(kernel_params) + ", " + str(reg_param)
+def research_LSSVR(X_data, Y_data, kernel_params, reg_param, c_one, c_two):
+    file_out = "Research\\" + str(kernel_params) + ", " + str(reg_param) + ", " + str(c_one) + ", " + str(c_two)
     sys.stdout = open(file_out + ".txt", "w+")
 
     kernel_list = []
@@ -65,7 +65,7 @@ def research_LSSVR(X_data, Y_data, kernel_params, reg_param):
     else:
         kernel_list = [lssvm.Kernel("rbf", [kernel_param])
                        for kernel_param in kernel_params]
-    regr_estimator = lssvm.MKLSSVR(kernel_list, c=reg_param)
+    regr_estimator = lssvm.MKLSSVR(kernel_list, c=reg_param, c_one=c_one, c_two=c_two)
     mse, cv_score = start_estimation(X_data, Y_data, regr_estimator, file_out)
     betas = regr_estimator.get_betas()
     return mse, cv_score, betas
@@ -82,36 +82,42 @@ def research_SVR(X_data, Y_data, kernel_param, reg_param):
 def research_block(research_mode, X_data, Y_data, mutex, *kernels):
     kernel_params = [k for k in kernels]
     for r in reg:
-        mse, cv, betas = 0.0, 0.0, 0.0
+        for c_one in c_one_r:
+            for c_two in c_two_r:
+                mse, cv, betas = 0.0, 0.0, 0.0
 
-        if research_mode == "LSSVR":
-            mse, cv, betas = research_LSSVR(X_data, Y_data, kernel_params, r)
-        if research_mode == "SVR":
-            mse, cv = research_SVR(X_data, Y_data, kernel_params, r)
+                if research_mode == "LSSVR":
+                    mse, cv, betas = research_LSSVR(X_data, Y_data, kernel_params, r, c_one, c_two)
+                if research_mode == "SVR":
+                    mse, cv = research_SVR(X_data, Y_data, kernel_params, r)
 
-        with mutex:
-            report_file = open("Research\\report.txt", "a")
+                with mutex:
+                    report_file = open("Research\\report.txt", "a")
 
-            str_kp = ""
-            for kp in kernel_params:
-                str_kp += '{:.3f} '.format(kp)
-            str_beta = ""
-            for beta in betas:
-                str_beta += '{:.3f} '.format(beta)
+                    str_kp = ""
+                    for kp in kernel_params:
+                        str_kp += '{:.3f} '.format(kp)
+                    str_beta = ""
+                    for beta in betas:
+                        str_beta += '{:.3f} '.format(beta)
 
-            report_file.write('{:.3f}'.format(mse[0]) + '\t{:.3f}'.format(cv[0]) + '\t{:.3f}'.format(r) + "\t" +
-                              str_kp + "\t" + str_beta + "\n")
-            report_file.close()
+                    report_file.write('{:.3f}'.format(mse[0]) + '\t{:.3f}'.format(cv[0]) + '\t{:.3f}'.format(r) + "\t" +
+                                    str_kp + "\t" + str_beta + "\n")
+                    report_file.close()
     return
 
 
 # Параметры модедирования
-kp = [0.01, 0.05, 0.1, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+# kp = [0.01, 0.05, 0.1, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+kp = [3.0, 4.0, 5.0, 8.0]
 reg = [2.0, 4.0, 6.0, 10.0]
+
+c_one_r = [1.0, 2.0, 3.0]
+c_two_r = [1.0, 2.0, 3.0]
 
 
 def main():
-    def data_generate(directory, function_name, x, noize_percent=0.25):
+    def data_generate(directory, function_name, x, noize_percent=0.25, emissions=0):
 
         def create_noize():
             u_mid, w = 0.0, 0.0
@@ -120,9 +126,21 @@ def main():
             u_mid /= len(x)
             for i in range(len(x)):
                 w = (y[i] - u_mid) ** 2
+            gamma = 0.0
             gamma = noize_percent * w / (len(x) - 1)
+            
             errors = scipy.random.normal(
                 loc=0.0, scale=np.sqrt(gamma), size=len(x))
+
+            emiss_idxs = []
+            for i in range(emissions):
+                emiss_idx = np.random.randint(0, len(errors))
+                while emiss_idx in emiss_idxs:
+                    emiss_idx = np.random.randint(0, len(errors))
+
+                emiss_idxs.append(emiss_idx)
+                errors[emiss_idx] *= np.random.randint(3, 5)
+
             return errors
 
         def save_figure(dpi=200, figsize=(10, 6)):
@@ -163,15 +181,16 @@ def main():
                     #                                                  kp[i + 1], kp[i + 2], kp[i + 3]))
 
                     # i += 1
-                thread = mp.Process(target=research_block, args=(research_mode, X_data, Y_data, mutex, kp_mk[i],
-                                                                 kp_mk[i + 1], kp_mk[i +
-                                                                                     2], kp_mk[i + 3],
-                                                                 kp_mk[i +
-                                                                       4], kp_mk[i],
-                                                                 kp_mk[i + 1], kp_mk[i +
-                                                                                     2], kp_mk[i + 3],
-                                                                 kp_mk[i + 4]))
-                thread_list.append(thread)
+                # thread = mp.Process(target=research_block, args=(research_mode, X_data, Y_data, mutex, kp_mk[i],
+                #                                                  kp_mk[i + 1], kp_mk[i +
+                #                                                                      2], kp_mk[i + 3],
+                #                                                  kp_mk[i +
+                #                                                        4], kp_mk[i],
+                #                                                  kp_mk[i + 1], kp_mk[i +
+                #                                                                      2], kp_mk[i + 3],
+                #                                                  kp_mk[i + 4]))
+                # thread_list.append(thread)
+                pass
             else:
                 while i < len(kp):
                     thread = mp.Process(target=research_block, args=(
@@ -185,16 +204,16 @@ def main():
                 thread.join()
 
     # # Исследования
-    datafile = "Datasets\\x2\\x2_0.4_80.xlsx"
+    datafile = "Datasets\\x2_2\\x2_2_0.4_80.xlsx"
     data = pd.read_excel(datafile, header=0)
     X_data = data.drop("y", axis=1).as_matrix()
     Y_data = np.array(data["y"])
-    # researches("LSSVR", mk_mode=False)
+    researches("LSSVR", mk_mode=False)
 
     # Генерация наборов данных
-    for i in [0.4, 0.8]:
-        for j in [1.6, 0.8, 0.4, 0.2, 0.1]:
-            data_generate("Datasets\\x2_1\\", "x2_1", np.arange(0.0, 16.0, j), i)
+    # for i in [0.4, 0.8]:
+    #     for j in [1.6, 0.8, 0.4, 0.2, 0.1]:
+    #         data_generate("Datasets\\x2_2\\", "x2_2", np.arange(-8.0, 8.0, j), i, emissions=8)
 
 
 if __name__ == '__main__':
