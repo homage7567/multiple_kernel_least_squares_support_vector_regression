@@ -112,8 +112,8 @@ def research_block(research_mode, X_data, Y_data, mutex, *kernels):
 kp = [3.0, 4.0, 5.0, 8.0]
 reg = [2.0, 4.0, 6.0, 10.0]
 
-c_one_r = [1.0, 2.0, 3.0]
-c_two_r = [1.0, 2.0, 3.0]
+c_one_r = [1.0, 3.0, 5.0, 8.0, 12.0]
+c_two_r = [1.0, 3.0, 5.0, 8.0, 12.0]
 
 
 def main():

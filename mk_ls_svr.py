@@ -68,40 +68,47 @@ class MKLSSVR(object):
             return alpha, b
 
         def __weight_calculate_alpha_b():
-            V = np.zeros((n, n), dtype=float)
             I = np.ones(n, dtype=float)
             H = np.zeros((n, n), dtype=float)
             for i in range(n):
                 ek = self.__alpha[i] / self.__c
                 uk = __calculate_uk(ek, X_train[i])
-                V[i][i] = 1 / (self.__c * uk)
+
                 for j in range(i, n):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
                         k += self.__betas[d] * \
                             self.__kernels[d].K(X_train[i], X_train[j])
                     H[i, j], H[j, i] = k, k
+                H[i][i] += 1 / (self.__c * uk)
 
-            Hinv = lalg.inv(H + V)
+            Hinv = lalg.inv(H)
             y = np.array(Y_train)
             b_star = (I.T @ Hinv @ y) / (I.T @ Hinv @ I)
             alpha_star = Hinv @ (y - I * b_star)
 
             return alpha_star, b_star
 
-        def mad(data, axis=None):
-            return np.mean(np.abs(data - np.mean(data, axis)), axis)
+
+        def mad(arr):
+            """ Median Absolute Deviation: a "Robust" version of standard deviation.
+                Indices variabililty of the sample.
+                https://en.wikipedia.org/wiki/Median_absolute_deviation 
+            """
+            arr = np.ma.array(arr).compressed() # should be faster to not use masked arrays.
+            med = np.median(arr)
+            return np.median(np.abs(arr - med))
 
         def __calculate_uk(ek, xi):
             uk = 0.0
-            s = 1.483*robust.mad(xi)
+            s = 1.483*mad(xi)
 
             if abs(ek/s) <= self.__c_one:
                 uk = 1.0
             elif self.__c_one <= abs(ek/s) <= self.__c_two:
                 uk = (self.__c_two - abs(ek/s))/(self.__c_two - self.__c_one)
             else:
-                 uk = 1e-4
+                uk = 1e-4
             return uk
 
         def __minimize_beta():
