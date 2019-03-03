@@ -8,6 +8,7 @@ from sklearn.svm import SVR
 import multiprocessing as mp
 from cross_validation import CV
 from matplotlib import pyplot as plt
+import math
 
 
 def f(x):
@@ -51,8 +52,8 @@ def start_estimation(X_data, Y_data, regr_estimator, file_out):
     return mse, cv_score
 
 
-def research_LSSVR(X_data, Y_data, kernel_params, reg_param, c_one, c_two):
-    file_out = "Research\\" + str(kernel_params) + ", " + str(reg_param) + ", " + str(c_one) + ", " + str(c_two)
+def research_LSSVR(X_data, Y_data, kernel_params, reg_param):
+    file_out = "Research\\" + str(kernel_params) + ", " + str(reg_param)
     sys.stdout = open(file_out + ".txt", "w+")
 
     kernel_list = []
@@ -65,7 +66,7 @@ def research_LSSVR(X_data, Y_data, kernel_params, reg_param, c_one, c_two):
     else:
         kernel_list = [lssvm.Kernel("rbf", [kernel_param])
                        for kernel_param in kernel_params]
-    regr_estimator = lssvm.MKLSSVR(kernel_list, c=reg_param, c_one=c_one, c_two=c_two)
+    regr_estimator = lssvm.MKLSSVR(kernel_list, c=reg_param)
     mse, cv_score = start_estimation(X_data, Y_data, regr_estimator, file_out)
     betas = regr_estimator.get_betas()
     return mse, cv_score, betas
@@ -82,38 +83,38 @@ def research_SVR(X_data, Y_data, kernel_param, reg_param):
 def research_block(research_mode, X_data, Y_data, mutex, *kernels):
     kernel_params = [k for k in kernels]
     for r in reg:
-        for c_one in c_one_r:
-            for c_two in c_two_r:
-                mse, cv, betas = 0.0, 0.0, 0.0
+        # for k in range(1, 10, 1):
+        # for c_one in c_one_r:
+        #     for c_two in c_two_r:
+        mse, cv, betas = 0.0, 0.0, 0.0
 
-                if research_mode == "LSSVR":
-                    mse, cv, betas = research_LSSVR(X_data, Y_data, kernel_params, r, c_one, c_two)
-                if research_mode == "SVR":
-                    mse, cv = research_SVR(X_data, Y_data, kernel_params, r)
+        if research_mode == "LSSVR":
+            mse, cv, betas = research_LSSVR(X_data, Y_data, kernel_params, r)
+        if research_mode == "SVR":
+            mse, cv = research_SVR(X_data, Y_data, kernel_params, r)
 
-                with mutex:
-                    report_file = open("Research\\report.txt", "a")
+        with mutex:
+            report_file = open("Research\\report.txt", "a")
 
-                    str_kp = ""
-                    for kp in kernel_params:
-                        str_kp += '{:.3f} '.format(kp)
-                    str_beta = ""
-                    for beta in betas:
-                        str_beta += '{:.3f} '.format(beta)
+            str_kp = ""
+            for kp in kernel_params:
+                str_kp += '{:.3f} '.format(kp)
+            str_beta = ""
+            for beta in betas:
+                str_beta += '{:.3f} '.format(beta)
 
-                    report_file.write('{:.3f}'.format(mse[0]) + '\t{:.3f}'.format(cv[0]) + '\t{:.3f}'.format(r) + "\t" +
-                                    str_kp + "\t" + str_beta + "\n")
-                    report_file.close()
+            report_file.write('{:.3f}'.format(mse[0]) + '\t{:.3f}'.format(cv[0]) + '\t{:.3f}'.format(r) + "\t" +
+                            str_kp + "\t" + str_beta + "\n")
+            report_file.close()
     return
 
 
 # Параметры модедирования
-# kp = [0.01, 0.05, 0.1, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
 kp = [3.0, 4.0, 5.0, 8.0]
 reg = [2.0, 4.0, 6.0, 10.0]
 
-c_one_r = [1.0, 3.0, 5.0, 8.0, 12.0]
-c_two_r = [1.0, 3.0, 5.0, 8.0, 12.0]
+# c_one_r = [1.0, 3.0, 5.0, 8.0, 12.0]
+# c_two_r = [1.0, 3.0, 5.0, 8.0, 12.0]
 
 
 def main():
@@ -139,7 +140,7 @@ def main():
                     emiss_idx = np.random.randint(0, len(errors))
 
                 emiss_idxs.append(emiss_idx)
-                errors[emiss_idx] *= np.random.randint(3, 5)
+                errors[emiss_idx] *= np.random.randint(8, 10)
 
             return errors
 
@@ -203,8 +204,8 @@ def main():
             for thread in thread_list:
                 thread.join()
 
-    # # Исследования
-    datafile = "Datasets\\x2_2\\x2_2_0.4_80.xlsx"
+    # Исследования
+    datafile = "Datasets\\x2\\x2_0.8_160.xlsx"
     data = pd.read_excel(datafile, header=0)
     X_data = data.drop("y", axis=1).as_matrix()
     Y_data = np.array(data["y"])
@@ -213,7 +214,9 @@ def main():
     # Генерация наборов данных
     # for i in [0.4, 0.8]:
     #     for j in [1.6, 0.8, 0.4, 0.2, 0.1]:
-    #         data_generate("Datasets\\x2_2\\", "x2_2", np.arange(-8.0, 8.0, j), i, emissions=8)
+    #         data_line = np.arange(-8.0, 8.0, j)
+    #         emissions = math.floor(len(data_line) / 2)
+    #         data_generate("Datasets\\x2\\", "x2", data_line, i, emissions=emissions)
 
 
 if __name__ == '__main__':

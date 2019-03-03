@@ -2,3 +2,9 @@
 Datasets/
 
 Research/
+
+venv/
+
+__pycache__/
+
+Result/

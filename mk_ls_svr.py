@@ -1,3 +1,4 @@
+# coding=utf-8
 import numpy as np
 import numpy.linalg as lalg
 from timer import Timer
@@ -18,8 +19,9 @@ class MKLSSVR(object):
     __kernel_cnt = 0
     __c_one = 0
     __c_two = 0
+    __k = 0
 
-    def __init__(self, kernels, error_param=0.00001, max_iter=10, c=1.0, c_one=0.0, c_two=0.0):
+    def __init__(self, kernels, error_param=0.00001, max_iter=10, c=1.0, c_one=2.5, c_two=3.0):
         '''
         Инициализация класса для оценивания модели
         :param kernels: Набор ядер
@@ -49,10 +51,10 @@ class MKLSSVR(object):
             Оценка параметров: альфа и значения смещения b
             :return: Оценённые параметры альфа и значения смещения b
             '''
-            I = np.ones(n, dtype=float)
-            H = np.zeros((n, n), dtype=float)
-            for i in range(n):
-                for j in range(i, n):
+            I = np.ones(n_tot, dtype=float)
+            H = np.zeros((n_tot, n_tot), dtype=float)
+            for i in range(n_tot):
+                for j in range(i, n_tot):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
                         k += self.__betas[d] * \
@@ -67,20 +69,20 @@ class MKLSSVR(object):
 
             return alpha, b
 
-        def __weight_calculate_alpha_b():
-            I = np.ones(n, dtype=float)
-            H = np.zeros((n, n), dtype=float)
-            for i in range(n):
+        def __suykens_robust():
+            I = np.ones(n_tot, dtype=float)
+            H = np.zeros((n_tot, n_tot), dtype=float)
+            for i in range(n_tot):
                 ek = self.__alpha[i] / self.__c
-                uk = __calculate_uk(ek, X_train[i])
+                uk = __calculate_uk(ek, X_train)
 
-                for j in range(i, n):
+                for j in range(i, n_tot):
                     k = 0.0
                     for d in range(self.__kernel_cnt):
                         k += self.__betas[d] * \
                             self.__kernels[d].K(X_train[i], X_train[j])
                     H[i, j], H[j, i] = k, k
-                H[i][i] += 1 / (self.__c * uk)
+                H[i][i] += 1.0 / (self.__c * uk)
 
             Hinv = lalg.inv(H)
             y = np.array(Y_train)
@@ -89,24 +91,24 @@ class MKLSSVR(object):
 
             return alpha_star, b_star
 
-
-        def mad(arr):
+        def mad(arr, axis=None):
             """ Median Absolute Deviation: a "Robust" version of standard deviation.
                 Indices variabililty of the sample.
                 https://en.wikipedia.org/wiki/Median_absolute_deviation 
             """
-            arr = np.ma.array(arr).compressed() # should be faster to not use masked arrays.
-            med = np.median(arr)
-            return np.median(np.abs(arr - med))
+            print("!!! 1: {0}".format(arr))
+            mad = np.median(np.abs(arr - np.median(arr)))
+            print("!!! 2: {0}".format(mad))
+            return mad 
 
-        def __calculate_uk(ek, xi):
+        def __calculate_uk(ek, x):
             uk = 0.0
-            s = 1.483*mad(xi)
+            s = 1.483*mad(x)
 
-            if abs(ek/s) <= self.__c_one:
+            if np.abs(ek/s) <= self.__c_one:
                 uk = 1.0
-            elif self.__c_one <= abs(ek/s) <= self.__c_two:
-                uk = (self.__c_two - abs(ek/s))/(self.__c_two - self.__c_one)
+            elif self.__c_one <= np.abs(ek/s) <= self.__c_two:
+                uk = (self.__c_two - np.abs(ek/s))/(self.__c_two - self.__c_one)
             else:
                 uk = 1e-4
             return uk
@@ -125,11 +127,11 @@ class MKLSSVR(object):
                 :return:
                 '''
                 sum = 0.0
-                for i in range(n):
-                    sum_k = np.zeros(n, dtype=float)
-                    K = np.zeros(n, dtype=float)
+                for i in range(n_tot):
+                    sum_k = np.zeros(n_tot, dtype=float)
+                    K = np.zeros(n_tot, dtype=float)
                     for d in range(self.__kernel_cnt):
-                        for j in range(n):
+                        for j in range(n_tot):
                             tmp1 = X_train[i]
                             tmp2 = X_train[j]
                             tmp = self.__kernels[d].K(X_train[i], X_train[j])
@@ -147,7 +149,7 @@ class MKLSSVR(object):
                              options={'maxiter': 5000, 'disp': True})
             return betas.x, betas.fun, prev_fun
 
-        n = len(X_train)
+        n_tot = len(X_train)
         self.__X_train = X_train
         cur_iter = 0
 
@@ -160,8 +162,8 @@ class MKLSSVR(object):
             with Timer("Alphas estimation"):
                 self.__alpha, self.__b = __calculate_alpha_b()
 
-            with Timer("Robust estimation"):
-                self.__alpha, self.__b = __weight_calculate_alpha_b()
+            # with Timer("Robust estimation"):
+            #     self.__alpha, self.__b = __suykens_robust()
 
             if self.__kernel_cnt > 1:
                 with Timer("Betas estimation"):
