@@ -17,11 +17,20 @@ class MKLSSVR(object):
     __c = 0
     __betas = 0
     __kernel_cnt = 0
-    __c_one = 0
-    __c_two = 0
     __k = 0
 
-    def __init__(self, kernels, error_param=0.00001, max_iter=10, c=1.0, c_one=2.5, c_two=3.0):
+    '''
+    For Suykens robust
+    '''
+    __c_one = 0
+    __c_two = 0
+
+    '''
+    For Robust with simple Huber loss function
+    '''
+    __c_huber = 0
+
+    def __init__(self, kernels, error_param=0.00001, max_iter=10, c=1.0, c_one=2.5, c_two=3.0, c_huber=1.345):
         '''
         Инициализация класса для оценивания модели
         :param kernels: Набор ядер
@@ -36,6 +45,7 @@ class MKLSSVR(object):
         self.__kernel_cnt = len(kernels)
         self.__c_one = c_one
         self.__c_two = c_two
+        self.__c_huber = c_huber
         self.__betas = np.array(
             [1.0 / self.__kernel_cnt for _ in range(self.__kernel_cnt)])
 
@@ -64,17 +74,38 @@ class MKLSSVR(object):
 
             Hinv = lalg.inv(H)
             y = np.array(Y_train)
+
             b = (I.T @ Hinv @ y) / (I.T @ Hinv @ I)
             alpha = Hinv @ (y - I * b)
 
             return alpha, b
 
-        def __suykens_robust():
+        def __robust_suykens():
+            def mad(arr, axis=None):
+                """ Median Absolute Deviation: a "Robust" version of standard deviation.
+                    Indices variabililty of the sample.
+                    https://en.wikipedia.org/wiki/Median_absolute_deviation 
+                """
+                mad = np.median(np.abs(arr - np.median(arr)))
+                return mad 
+
+            def calculate_uk(ek, x):
+                uk = 0.0
+                s = 1.483*mad(x)
+
+                if np.abs(ek/s) <= self.__c_one:
+                    uk = 1.0
+                elif self.__c_one <= np.abs(ek/s) <= self.__c_two:
+                    uk = (self.__c_two - np.abs(ek/s))/(self.__c_two - self.__c_one)
+                else:
+                    uk = 1e-4
+                return uk
+
             I = np.ones(n_tot, dtype=float)
             H = np.zeros((n_tot, n_tot), dtype=float)
             for i in range(n_tot):
                 ek = self.__alpha[i] / self.__c
-                uk = __calculate_uk(ek, X_train)
+                uk = calculate_uk(ek, X_train)
 
                 for j in range(i, n_tot):
                     k = 0.0
@@ -91,27 +122,58 @@ class MKLSSVR(object):
 
             return alpha_star, b_star
 
-        def mad(arr, axis=None):
-            """ Median Absolute Deviation: a "Robust" version of standard deviation.
-                Indices variabililty of the sample.
-                https://en.wikipedia.org/wiki/Median_absolute_deviation 
-            """
-            print("!!! 1: {0}".format(arr))
-            mad = np.median(np.abs(arr - np.median(arr)))
-            print("!!! 2: {0}".format(mad))
-            return mad 
+        def __robust_simple_huber_loss_function():
+            def calc_v(ri, s):
+                v = 0
+                if np.abs(ri) < self.__c_huber:
+                    v = 1
+                else:
+                    v = self.__c_huber / np.abs(ri / s)
+                return v
 
-        def __calculate_uk(ek, x):
-            uk = 0.0
-            s = 1.483*mad(x)
+            def calculate_y(x, alpha, b):
+                sum_j = 0.0
+                for j in range(len(self.__X_train)):
+                    sum_d = 0.0
+                    xj = self.__X_train[j]
+                    for d in range(self.__kernel_cnt):
+                        sum_d += self.__betas[d] * self.__kernels[d].K(x, xj)
+                    sum_j += alpha[j] * sum_d
+                return sum_j + b
 
-            if np.abs(ek/s) <= self.__c_one:
-                uk = 1.0
-            elif self.__c_one <= np.abs(ek/s) <= self.__c_two:
-                uk = (self.__c_two - np.abs(ek/s))/(self.__c_two - self.__c_one)
-            else:
-                uk = 1e-4
-            return uk
+            alpha_star = self.__alpha
+            b_star = self.__b
+            y_est = [calculate_y(X_train[i], alpha_star, b_star) for i in range(len(X_train))]
+            y_est_old = np.array([1e8 for _ in range(len(y_est))])
+            is_true = True
+
+            while is_true or np.max(np.abs((np.array(y_est) - np.array(y_est_old)) / np.array(y_est_old))) < 0.00001:
+                is_true = False
+                r = Y_train - y_est
+                s = np.median(np.abs(r)) / 0.67449
+                
+                I = np.ones(n_tot, dtype=float)
+                H = np.zeros((n_tot, n_tot), dtype=float)
+                for i in range(n_tot):
+                    vi = calc_v(r[i], s)
+                    for j in range(i, n_tot):
+                        k = 0.0
+                        for d in range(self.__kernel_cnt):
+                            k += self.__betas[d] * \
+                                self.__kernels[d].K(X_train[i], X_train[j])
+                        H[i, j], H[j, i] = k, k
+                    H[i][i] += 1.0 / (self.__c * vi)
+
+                Hinv = lalg.inv(H)
+                y = np.array(Y_train)
+                b_star = (I.T @ Hinv @ y) / (I.T @ Hinv @ I)
+                alpha_star = Hinv @ (y - I * b_star)
+
+                y_est_old = y_est
+                y_est = [calculate_y(X_train[i], alpha_star, b_star) for i in range(len(X_train))]
+
+            return alpha_star, b_star
+            
 
         def __minimize_beta():
             '''
@@ -162,8 +224,11 @@ class MKLSSVR(object):
             with Timer("Alphas estimation"):
                 self.__alpha, self.__b = __calculate_alpha_b()
 
-            # with Timer("Robust estimation"):
-            #     self.__alpha, self.__b = __suykens_robust()
+            # with Timer("Suykens robust estimation"):
+            #     self.__alpha, self.__b = __robust_suykens()
+
+            # with Timer("Huber loss function robust estimation"):
+            #     self.__alpha, self.__b = __robust_simple_huber_loss_function()
 
             if self.__kernel_cnt > 1:
                 with Timer("Betas estimation"):
